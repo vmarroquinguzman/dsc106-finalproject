@@ -1,107 +1,280 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>How Hot Will San Diego's Summers Get?</title>
+
+  <!-- Website CSS -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- Mapbox GL JS CSS -->
   <link
-  href="https://api.mapbox.com/mapbox-gl-js/v3.35.0/mapbox-gl.css"
-  rel="stylesheet"/>
+    href="https://api.mapbox.com/mapbox-gl-js/v3.35.0/mapbox-gl.css"
+    rel="stylesheet"
+  >
+
+  <!-- Mapbox GL JS -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.35.0/mapbox-gl.js"></script>
+
+  <!-- Mapbox Comparison Slider CSS -->
+  <link
+    rel="stylesheet"
+    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.css"
+  >
+
+  <!-- Mapbox Comparison Slider JS -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.js"></script>
+
+  <!-- Main JavaScript -->
   <script type="module" src="main.js"></script>
+
 </head>
 
 <body>
+
+  <!-- =====================================
+       HEADER
+  ====================================== -->
+
   <header class="hero">
+
     <h1>How Hot Will San Diego's Summers Get?</h1>
+
     <p>
       Explore how San Diego's temperatures could change
-      through 2100 under different emissions scenarios.
+      through 2100 under different greenhouse gas
+      emissions scenarios.
     </p>
+
   </header>
 
+
   <main>
+
+    <!-- =====================================
+         INTRODUCTION
+    ====================================== -->
+
     <section class="introduction">
+
       <h2>What Does the Future Hold?</h2>
+
       <p>
         Climate projections suggest that San Diego's
-        summers could become warmer. Explore how
-        different emissions scenarios may affect
-        temperatures across the region.
+        summers could become warmer as greenhouse gas
+        emissions continue to influence global temperatures.
+        But how much could temperatures change?
       </p>
+
+      <p>
+        Using NASA climate projections, this interactive
+        visualization allows you to compare possible
+        future summer temperatures across San Diego County
+        under different greenhouse gas emissions scenarios.
+      </p>
+
     </section>
 
+
+    <!-- =====================================
+         INTERACTIVE CLIMATE EXPLORER
+    ====================================== -->
+
     <section class="explorer">
+
       <h2>Explore San Diego's Future Climate</h2>
 
+      <p>
+        Select two years, choose a month and emissions
+        scenario, and drag the slider across the map
+        to explore projected temperature differences.
+      </p>
+
+
+      <!-- =====================================
+           INTERACTIVE CONTROLS
+      ====================================== -->
+
       <div class="controls">
-        <label for="year-slider">
-          Year: <span id="year-value">2050</span>
+
+        <!-- Two-year comparison -->
+        <div class="year-comparison">
+
+          <div class="year-control">
+
+            <label for="before-year">
+              First Year
+            </label>
+
+            <select id="before-year"></select>
+
+          </div>
+
+          <div class="year-control">
+
+            <label for="after-year">
+              Second Year
+            </label>
+
+            <select id="after-year"></select>
+
+          </div>
+
+        </div>
+
+
+        <!-- Emissions scenario selector -->
+        <label for="scenario">
+          Emissions Scenario
         </label>
 
-        <label for="month">Select Month</label>
-
-        <select id="month">
-            <option value="6">June</option>
-            <option value="7" selected>July</option>
-            <option value="8">August</option>
-            <option value="9">September</option>
-        </select>
-
-        <input
-          type="range"
-          id="year-slider"
-          min="2015"
-          max="2100"
-          value="2050"
-        >
-
-        <label for="scenario">Emissions Scenario</label>
-
         <select id="scenario">
-          <option value="ssp126">Low (SSP1-2.6)</option>
-          <option value="ssp245">Medium (SSP2-4.5)</option>
-          <option value="ssp370">High (SSP3-7.0)</option>
+
+          <option value="ssp126">
+            Low Emissions (SSP1-2.6)
+          </option>
+
+          <option value="ssp245">
+            Medium Emissions (SSP2-4.5)
+          </option>
+
+          <option value="ssp370">
+            High Emissions (SSP3-7.0)
+          </option>
+
         </select>
 
-        <label for="month">Select Month</label>
+
+        <!-- Month selector -->
+        <label for="month">
+          Select Month
+        </label>
+
         <select id="month">
-            <option value="6">June</option>
-            <option value="7" selected>July</option>
-            <option value="8">August</option>
-            <option value="9">September</option>
+
+          <option value="6">
+            June
+          </option>
+
+          <option value="7" selected>
+            July
+          </option>
+
+          <option value="8">
+            August
+          </option>
+
+          <option value="9">
+            September
+          </option>
+
         </select>
 
       </div>
 
-      <div id="map"></div>
+
+      <!-- =====================================
+           MAPBOX COMPARISON
+      ====================================== -->
+
+      <div id="comparison-container">
+
+        <!-- LEFT MAP -->
+        <div
+          id="before"
+          class="comparison-map">
+        </div>
+
+        <!-- RIGHT MAP -->
+        <div
+          id="after"
+          class="comparison-map">
+        </div>
+
+
+        <!-- Left year label -->
+        <div class="map-label before-label">
+
+          <span id="before-year-label">
+            2020
+          </span>
+
+        </div>
+
+
+        <!-- Right year label -->
+        <div class="map-label after-label">
+
+          <span id="future-year">
+            2050
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- =====================================
+           TEMPERATURE LEGEND
+      ====================================== -->
 
       <div class="temperature-legend">
-        <h3>Average Daily High Temperature (°F)</h3>
+
+        <h3>
+          Average Daily High Temperature (°F)
+        </h3>
 
         <div class="legend-gradient"></div>
 
         <div class="legend-labels">
-            <span>65°F</span>
-            <span>75°F</span>
-            <span>85°F</span>
-            <span>95°F</span>
-            <span>105°F</span>
+
+          <span>65°F</span>
+          <span>75°F</span>
+          <span>85°F</span>
+          <span>95°F</span>
+          <span>105°F</span>
+
         </div>
 
         <p>
-            Green represents cooler temperatures,
-            while red represents hotter temperatures.
+          Green represents cooler temperatures,
+          while red represents hotter temperatures.
         </p>
-        </div>
+
+      </div>
+
+
+      <!-- =====================================
+           MAP DESCRIPTION
+      ====================================== -->
 
       <p id="map-description">
-        Explore the map by zooming and dragging.
-        Temperature projections will be added next.
+
+        Select two years and an emissions scenario,
+        then drag the comparison slider to explore
+        projected temperature differences.
+
       </p>
+
+
+      <!-- =====================================
+           DATA SOURCE NOTE
+      ====================================== -->
+
+      <p class="data-source">
+
+        Data Source:
+        NASA NEX-GDDP-CMIP6 Climate Projections,
+        GFDL-ESM4 climate model.
+
+      </p>
+
     </section>
+
   </main>
+
 </body>
 </html>
