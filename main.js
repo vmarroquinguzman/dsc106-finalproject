@@ -45,7 +45,7 @@ afterYearSelect.value = '2050';
 // ======================================
 
 const mapSettings = {
-  style: 'mapbox://styles/mapbox/standard',
+  style: 'mapbox://styles/mapbox/light-v11',
   center: [-116.85, 33.02],
   zoom: 8.5
 };
