@@ -6,24 +6,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How Hot Will San Diego's Summers Get?</title>
   <link rel="stylesheet" href="style.css">
+  <link
+  href="https://api.mapbox.com/mapbox-gl-js/v3.35.0/mapbox-gl.css"
+  rel="stylesheet"/>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.35.0/mapbox-gl.js"></script>
   <script type="module" src="main.js"></script>
 </head>
+
 <body>
-  <header>
+  <header class="hero">
     <h1>How Hot Will San Diego's Summers Get?</h1>
-    <p>Exploring San Diego's future temperatures through 2100.</p>
+    <p>
+      Explore how San Diego's temperatures could change
+      through 2100 under different emissions scenarios.
+    </p>
   </header>
 
   <main>
-    <section id="introduction">
-      <h2>What Will San Diego's Future Look Like?</h2>
-      <p>Explore projected temperatures under different
-         greenhouse gas emissions scenarios.</p>
+    <section class="introduction">
+      <h2>What Does the Future Hold?</h2>
+      <p>
+        Climate projections suggest that San Diego's
+        summers could become warmer. Explore how
+        different emissions scenarios may affect
+        temperatures across the region.
+      </p>
     </section>
 
-    <section id="visualization">
-      <h2>Explore Your Future Climate</h2>
+    <section class="explorer">
+      <h2>Explore San Diego's Future Climate</h2>
+
+      <div class="controls">
+        <label for="year-slider">
+          Year: <span id="year-value">2050</span>
+        </label>
+
+        <input
+          type="range"
+          id="year-slider"
+          min="2015"
+          max="2100"
+          value="2050"
+        >
+
+        <label for="scenario">Emissions Scenario</label>
+
+        <select id="scenario">
+          <option value="ssp126">Low (SSP1-2.6)</option>
+          <option value="ssp245">Medium (SSP2-4.5)</option>
+          <option value="ssp370">High (SSP3-7.0)</option>
+        </select>
+      </div>
+
       <div id="map"></div>
+
+      <p id="map-description">
+        Explore the map by zooming and dragging.
+        Temperature projections will be added next.
+      </p>
     </section>
   </main>
 </body>
