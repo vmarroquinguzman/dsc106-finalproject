@@ -152,36 +152,85 @@ function addTemperatureLayer(map, geojsonData) {
     }
   });
 
-  // Click regions to view temperature
-  map.on('click', 'temperature-fill', event => {
 
-    const feature = event.features[0];
-    if (!feature) return;
+// ======================================
+// TEMPERATURE HOVER TOOLTIP
+// ======================================
 
-    const temp = feature.properties.temperature;
+// Create a reusable popup for this map
+const temperaturePopup = new mapboxgl.Popup({
+  closeButton: false,
+  closeOnClick: false,
+  offset: 15
+});
 
-    const tempText = temp == null
-      ? 'No data'
-      : `${Number(temp).toFixed(1)}°F`;
+// Change cursor when entering a temperature region
+map.on('mouseenter', 'temperature-fill', () => {
+  map.getCanvas().style.cursor = 'pointer';
+});
 
-    new mapboxgl.Popup()
-      .setLngLat(event.lngLat)
-      .setHTML(`
-        <strong>Projected Average Daily High</strong>
-        <p>${tempText}</p>
-      `)
-      .addTo(map);
+// Update tooltip as the mouse moves
+map.on('mousemove', 'temperature-fill', (event) => {
 
-  });
+  const feature = event.features[0];
+  if (!feature) return;
 
-  // Cursor changes when hovering over regions
-  map.on('mouseenter', 'temperature-fill', () => {
-    map.getCanvas().style.cursor = 'pointer';
-  });
+  // Get temperature from the GeoJSON feature
+  const rawTemp = feature.properties.temperature;
 
-  map.on('mouseleave', 'temperature-fill', () => {
-    map.getCanvas().style.cursor = '';
-  });
+  const temp = rawTemp == null
+    ? null
+    : Number(rawTemp);
+
+  const tempText = temp !== null && Number.isFinite(temp)
+    ? `${temp.toFixed(1)}°F`
+    : 'No temperature data';
+
+  // Identify which map is being hovered over
+  const isBefore = map === beforeMap;
+
+  const year = isBefore
+    ? beforeYearSelect.value
+    : afterYearSelect.value;
+
+  const month = monthSelect.selectedOptions[0].text;
+  const scenario = scenarioSelect.selectedOptions[0].text;
+
+  // Tooltip content
+  const tooltipHTML = `
+    <div class="temperature-tooltip">
+      <h3>Projected Temperature</h3>
+
+      <div class="tooltip-temperature">
+        ${tempText}
+      </div>
+
+      <p><strong>Year:</strong> ${year}</p>
+      <p><strong>Month:</strong> ${month}</p>
+      <p><strong>Scenario:</strong> ${scenario}</p>
+
+      <p class="tooltip-note">
+        Average daily maximum temperature
+      </p>
+    </div>
+  `;
+
+  // Position popup at the mouse location
+  temperaturePopup
+    .setLngLat(event.lngLat)
+    .setHTML(tooltipHTML)
+    .addTo(map);
+});
+
+// Remove popup when leaving the region
+map.on('mouseleave', 'temperature-fill', () => {
+  map.getCanvas().style.cursor = '';
+  temperaturePopup.remove();
+});
+
+
+  
+  
 
 }
 

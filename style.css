@@ -251,3 +251,48 @@ section {
     flex-basis: 100%;
   }
 }
+
+/* ===================================
+   TEMPERATURE HOVER TOOLTIP
+=================================== */
+
+.temperature-tooltip {
+  font-family: Arial, sans-serif;
+  min-width: 180px;
+  padding: 5px;
+  color: #252525;
+}
+
+.temperature-tooltip h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tooltip-temperature {
+  font-size: 26px;
+  font-weight: 700;
+  color: #d65a38;
+  margin-bottom: 12px;
+}
+
+.temperature-tooltip p {
+  font-size: 12px;
+  margin: 5px 0;
+  line-height: 1.5;
+}
+
+.temperature-tooltip .tooltip-note {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #ddd;
+  color: #666;
+  font-size: 11px;
+}
+
+/* Override default Mapbox popup styling */
+.mapboxgl-popup-content {
+  border-radius: 10px;
+  padding: 12px 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
