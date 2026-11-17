@@ -1,7 +1,6 @@
 
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
 
-// Keep your existing PUBLIC Mapbox token
 mapboxgl.accessToken = 'pk.eyJ1Ijoidm1hcnJvcXVpbmd1em1hbiIsImEiOiJjbXdkeWljcjQwMHh1MnpvZWI5dTdrOGl3In0.xo5Vd3LYeQQlubikstOSUw';
 
 // Initialize Mapbox
@@ -21,16 +20,14 @@ const scenarioSelect = document.querySelector('#scenario');
 const monthSelect = document.querySelector('#month');
 const description = document.querySelector('#map-description');
 
-// Empty data containers
 let monthlyData = [];
 let temperatureRegions = null;
 
-// Match a CSV location to its GeoJSON polygon
 function locationKey(lat, lon) {
   return `${Number(lat).toFixed(3)},${Number(lon).toFixed(3)}`;
 }
 
-// Color scale: temperature in Fahrenheit
+// Temperature color scale
 const temperatureColor = [
   'case',
   ['==', ['get', 'temperature'], null], '#AAAAAA',
@@ -46,10 +43,9 @@ const temperatureColor = [
   ]
 ];
 
-// Initialize everything when Mapbox loads
+// Load data after Mapbox initializes
 map.on('load', async () => {
   try {
-    // Load temperature data and geographic regions
     const [csvData, geojsonData] = await Promise.all([
       d3.csv('data/regional_monthly.csv', d3.autoType),
       d3.json('data/temperature_regions.geojson')
@@ -58,29 +54,25 @@ map.on('load', async () => {
     monthlyData = csvData;
     temperatureRegions = geojsonData;
 
-    // Initialize every region with no temperature
     temperatureRegions.features.forEach(feature => {
       feature.properties.temperature = null;
     });
 
-    // Add geographic data source
     map.addSource('temperature-regions', {
       type: 'geojson',
       data: temperatureRegions
     });
 
-    // Add color-filled regions
     map.addLayer({
       id: 'temperature-fill',
       type: 'fill',
       source: 'temperature-regions',
       paint: {
         'fill-color': temperatureColor,
-        'fill-opacity': 0.65
+        'fill-opacity': 0.7
       }
     });
 
-    // Add subtle borders between temperature regions
     map.addLayer({
       id: 'temperature-outline',
       type: 'line',
@@ -92,20 +84,16 @@ map.on('load', async () => {
       }
     });
 
-    // Interactive popup
-    map.on('click', 'temperature-fill', (event) => {
+    // Show temperature when clicking a region
+    map.on('click', 'temperature-fill', event => {
       const feature = event.features[0];
       const temp = feature.properties.temperature;
-
-      const tempText = temp == null
-        ? 'No data'
-        : `${Number(temp).toFixed(1)}°F`;
 
       new mapboxgl.Popup()
         .setLngLat(event.lngLat)
         .setHTML(`
           <strong>Projected Average Daily High</strong>
-          <p>${tempText}</p>
+          <p>${temp == null ? 'No data' : Number(temp).toFixed(1) + '°F'}</p>
         `)
         .addTo(map);
     });
@@ -118,18 +106,16 @@ map.on('load', async () => {
       map.getCanvas().style.cursor = '';
     });
 
-    // Display initial selection
     updateTemperatureMap();
 
     console.log('Temperature map loaded successfully!');
   } catch (error) {
-    console.error('Error loading temperature data:', error);
+    console.error('Error loading data:', error);
     description.textContent =
-      'Unable to load temperature data. Check the browser console.';
+      'Error loading temperature data. Check the console.';
   }
 });
 
-// Update map based on the selected controls
 function updateTemperatureMap() {
   if (!temperatureRegions || monthlyData.length === 0) {
     return;
@@ -152,23 +138,22 @@ function updateTemperatureMap() {
     Number(row.MO) === month
   );
 
-  // Create a lookup from coordinates to temperature
   const temperatureLookup = new Map();
 
   selectedRows.forEach(row => {
     const key = locationKey(row.latitude, row.longitude);
     const rawValue = row[temperatureColumn];
+
     const value = rawValue == null || rawValue === ''
-        ? null
-        : Number(rawValue);
+      ? null
+      : Number(rawValue);
 
     temperatureLookup.set(
       key,
-      Number.isFinite(value) ? value : null
+      value !== null && Number.isFinite(value) ? value : null
     );
   });
 
-  // Assign temperature values to geographic regions
   temperatureRegions.features.forEach(feature => {
     const { latitude, longitude } = feature.properties;
     const key = locationKey(latitude, longitude);
@@ -177,29 +162,22 @@ function updateTemperatureMap() {
       temperatureLookup.get(key) ?? null;
   });
 
-  // Update the Mapbox geographic source
   map.getSource('temperature-regions').setData(
     temperatureRegions
   );
 
-  // Update description
-  const monthName =
-    monthSelect.selectedOptions[0].text;
-
-  const scenarioName =
-    scenarioSelect.selectedOptions[0].text;
+  const monthName = monthSelect.selectedOptions[0].text;
+  const scenarioName = scenarioSelect.selectedOptions[0].text;
 
   description.textContent =
-    `Projected average daily maximum temperatures ` +
-    `for ${monthName} ${year} under ${scenarioName}. ` +
+    `Projected average daily maximum temperatures for ` +
+    `${monthName} ${year} under ${scenarioName}. ` +
     `Click a region to see its projected temperature.`;
 
   yearValue.textContent = year;
 }
 
-// Control event listeners
+// Event listeners
 yearSlider.addEventListener('input', updateTemperatureMap);
-
 scenarioSelect.addEventListener('change', updateTemperatureMap);
-
 monthSelect.addEventListener('change', updateTemperatureMap);

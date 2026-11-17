@@ -65,6 +65,15 @@
           <option value="ssp245">Medium (SSP2-4.5)</option>
           <option value="ssp370">High (SSP3-7.0)</option>
         </select>
+
+        <label for="month">Select Month</label>
+        <select id="month">
+            <option value="6">June</option>
+            <option value="7" selected>July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+        </select>
+
       </div>
 
       <div id="map"></div>
@@ -82,10 +91,11 @@
             <span>105°F</span>
         </div>
 
-        <p>Green = cooler temperatures;
-            red = hotter temperatures.</p>
-       </div>
-
+        <p>
+            Green represents cooler temperatures,
+            while red represents hotter temperatures.
+        </p>
+        </div>
 
       <p id="map-description">
         Explore the map by zooming and dragging.
