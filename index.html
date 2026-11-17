@@ -41,6 +41,15 @@
           Year: <span id="year-value">2050</span>
         </label>
 
+        <label for="month">Select Month</label>
+
+        <select id="month">
+            <option value="6">June</option>
+            <option value="7" selected>July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+        </select>
+
         <input
           type="range"
           id="year-slider"
@@ -59,6 +68,24 @@
       </div>
 
       <div id="map"></div>
+
+      <div class="temperature-legend">
+        <h3>Average Daily High Temperature (°F)</h3>
+
+        <div class="legend-gradient"></div>
+
+        <div class="legend-labels">
+            <span>65°F</span>
+            <span>75°F</span>
+            <span>85°F</span>
+            <span>95°F</span>
+            <span>105°F</span>
+        </div>
+
+        <p>Green = cooler temperatures;
+            red = hotter temperatures.</p>
+       </div>
+
 
       <p id="map-description">
         Explore the map by zooming and dragging.

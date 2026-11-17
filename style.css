@@ -74,3 +74,38 @@ section {
   font-size: 0.9rem;
   margin-top: 15px;
 }
+
+.temperature-legend {
+  max-width: 450px;
+  margin-top: 20px;
+}
+
+.temperature-legend h3 {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.legend-gradient {
+  height: 18px;
+  border-radius: 5px;
+  background: linear-gradient(
+    to right,
+    #348B71,
+    #A6D58A,
+    #F4D35E,
+    #EF8E42,
+    #C9453D
+  );
+}
+
+.legend-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.temperature-legend p {
+  font-size: 12px;
+  color: #666;
+}
