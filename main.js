@@ -21,6 +21,15 @@ const scenarioSelect = document.querySelector('#scenario');
 const monthSelect = document.querySelector('#month');
 const description = document.querySelector('#map-description');
 
+// ZIP-code search controls
+const zipInput = document.querySelector('#zip-input');
+const zipSearchButton = document.querySelector('#zip-search-button');
+const zipResetButton = document.querySelector('#zip-reset-button');
+const zipMessage = document.querySelector('#zip-message');
+
+let zipFeatures = [];
+let selectedZip = null;
+
 // Populate year dropdowns with 2015–2100
 for (let year = 2015; year <= 2100; year++) {
   beforeYearSelect.add(new Option(year, year));
@@ -177,6 +186,44 @@ function addTemperatureLayer(map, geojsonData) {
 }
 
 // ======================================
+// ZIP-CODE BOUNDARY LAYERS
+// ======================================
+
+function addZipLayers(map, geojsonData) {
+
+  map.addSource('zipcodes', {
+    type: 'geojson',
+    data: geojsonData
+  });
+
+  // Draw all ZIP-code outlines
+  map.addLayer({
+    id: 'zipcode-outlines',
+    type: 'line',
+    source: 'zipcodes',
+    paint: {
+      'line-color': '#374151',
+      'line-width': 0.7,
+      'line-opacity': 0.6
+    }
+  });
+
+  // Highlight the selected ZIP code
+  map.addLayer({
+    id: 'zipcode-highlight',
+    type: 'line',
+    source: 'zipcodes',
+    filter: ['==', ['get', 'zip'], -1],
+    paint: {
+      'line-color': '#152f45',
+      'line-width': 4,
+      'line-opacity': 1
+    }
+  });
+}
+
+
+// ======================================
 // 7. GET TEMPERATURE DATA FOR A YEAR
 // ======================================
 
@@ -299,10 +346,15 @@ async function initializeComparison() {
   try {
 
     // Load CSV and temperature GeoJSON
-    const [csvData, geojsonData] = await Promise.all([
-      d3.csv('data/regional_monthly.csv', d3.autoType),
-      d3.json('data/temperature_regions.geojson')
+    const [csvData, geojsonData, zipData] = await Promise.all([
+        d3.csv('data/regional_monthly.csv', d3.autoType),
+        d3.json('data/temperature_regions.geojson'),
+        d3.json('data/san_diego_zipcodes.geojson')
     ]);
+
+// Keep ZIP-code polygons for searching
+zipFeatures = zipData.features;
+
 
     monthlyData = csvData;
     temperatureRegions = geojsonData;
@@ -323,6 +375,10 @@ async function initializeComparison() {
     // Add temperature overlays
     addTemperatureLayer(beforeMap, temperatureRegions);
     addTemperatureLayer(afterMap, temperatureRegions);
+
+    // Add ZIP-code outlines to both maps
+    addZipLayers(beforeMap, zipData);
+    addZipLayers(afterMap, zipData);
 
     dataReady = true;
 
@@ -355,3 +411,132 @@ afterYearSelect.addEventListener('change', updateComparison);
 // Update when scenario or month changes
 scenarioSelect.addEventListener('change', updateComparison);
 monthSelect.addEventListener('change', updateComparison);
+
+
+// ======================================
+// ZIP-CODE SEARCH AND ZOOM
+// ======================================
+
+// Find the bounding box of a GeoJSON polygon
+function getFeatureBounds(feature) {
+  const bounds = new mapboxgl.LngLatBounds();
+
+  function addCoordinates(coordinates) {
+    // A single [longitude, latitude] coordinate
+    if (
+      typeof coordinates[0] === 'number' &&
+      typeof coordinates[1] === 'number'
+    ) {
+      bounds.extend(coordinates);
+      return;
+    }
+
+    // Handle Polygon and MultiPolygon nesting
+    coordinates.forEach(addCoordinates);
+  }
+
+  addCoordinates(feature.geometry.coordinates);
+
+  return bounds;
+}
+
+// Highlight the selected ZIP on both maps
+function highlightZip(zip) {
+  const filter = [
+    '==',
+    ['get', 'zip'],
+    Number(zip)
+  ];
+
+  beforeMap.setFilter('zipcode-highlight', filter);
+  afterMap.setFilter('zipcode-highlight', filter);
+}
+
+// Search for a ZIP code
+function searchZipCode() {
+  const zip = zipInput.value.trim();
+
+  if (!/^\d{5}$/.test(zip)) {
+    zipMessage.textContent =
+      'Please enter a valid five-digit ZIP code.';
+    return;
+  }
+
+  if (!dataReady || !beforeMap.getLayer('zipcode-highlight')) {
+    zipMessage.textContent =
+      'Map data is still loading. Please try again.';
+    return;
+  }
+
+  // Find the matching ZIP-code polygon
+  const feature = zipFeatures.find(
+    f => String(f.properties.zip) === zip
+  );
+
+  if (!feature) {
+    zipMessage.textContent =
+      'ZIP code not found in the San Diego County dataset.';
+    return;
+  }
+
+  selectedZip = zip;
+
+  // Highlight its real geographic boundary
+  highlightZip(zip);
+
+  // Zoom to the selected area
+  const bounds = getFeatureBounds(feature);
+
+  const zoomOptions = {
+    padding: 65,
+    maxZoom: 13,
+    duration: 1000
+  };
+
+  // The comparison plugin synchronizes the maps
+  beforeMap.fitBounds(bounds, zoomOptions);
+
+  zipMessage.textContent =
+    `Showing ZIP code ${zip}` +
+    (feature.properties.community
+      ? ` — ${feature.properties.community}`
+      : '');
+}
+
+// Reset to the full county view
+function resetZipSearch() {
+  zipInput.value = '';
+  selectedZip = null;
+  zipMessage.textContent = '';
+
+  if (!dataReady) return;
+
+  const emptyFilter = [
+    '==',
+    ['get', 'zip'],
+    -1
+  ];
+
+  beforeMap.setFilter('zipcode-highlight', emptyFilter);
+  afterMap.setFilter('zipcode-highlight', emptyFilter);
+
+  beforeMap.flyTo({
+    center: [-116.85, 33.02],
+    zoom: 8.5,
+    duration: 1000
+  });
+}
+
+// Search when clicking the button
+zipSearchButton.addEventListener('click', searchZipCode);
+
+// Search when pressing Enter
+zipInput.addEventListener('keydown', event => {
+  if (event.key === 'Enter') {
+    searchZipCode();
+  }
+});
+
+// Reset map
+zipResetButton.addEventListener('click', resetZipSearch);
+

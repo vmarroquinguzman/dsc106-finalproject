@@ -173,6 +173,39 @@
 
         </select>
 
+    <!-- ZIP-code search -->
+    <div class="zip-search">
+        <label for="zip-input">
+            Explore Your ZIP Code
+        </label>
+
+        <p>
+            Enter a San Diego County ZIP code to zoom
+            into your region.
+        </p>
+
+        <div class="zip-search-row">
+            <input
+            type="text"
+            id="zip-input"
+            placeholder="e.g. 92122"
+            maxlength="5"
+            inputmode="numeric"
+            >
+
+            <button id="zip-search-button" type="button">
+            Search
+            </button>
+
+            <button id="zip-reset-button" type="button">
+            Reset Map
+            </button>
+    </div>
+
+    <p id="zip-message" aria-live="polite"></p>
+    </div>
+
+
       </div>
 
 

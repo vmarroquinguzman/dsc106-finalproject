@@ -190,3 +190,64 @@ section {
     grid-template-columns: 1fr;
   }
 }
+
+/* ZIP-code search */
+.zip-search {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.zip-search label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.zip-search p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.zip-search-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+#zip-input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.zip-search-row button {
+  padding: 12px 18px;
+  background: #213c4a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.zip-search-row button:hover {
+  background: #345c6e;
+}
+
+#zip-message {
+  font-size: 13px;
+  color: #555;
+}
+
+@media (max-width: 600px) {
+  .zip-search-row {
+    flex-wrap: wrap;
+  }
+
+  #zip-input {
+    flex-basis: 100%;
+  }
+}
