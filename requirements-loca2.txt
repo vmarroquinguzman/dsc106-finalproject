@@ -1,0 +1,7 @@
+intake-esm==2023.11.10
+s3fs
+xarray
+zarr>=3.2
+numpy
+pandas
+shapely

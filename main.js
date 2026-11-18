@@ -271,7 +271,6 @@ function addZipLayers(map, geojsonData) {
   });
 }
 
-
 // ======================================
 // 7. GET TEMPERATURE DATA FOR A YEAR
 // ======================================
@@ -280,7 +279,6 @@ function getTemperatureGeoJSON(year, month, scenario) {
 
   // Match scenario to correct CSV column
   const columnNames = {
-    ssp126: 'MAX_F_SSP126',
     ssp245: 'MAX_F_SSP245',
     ssp370: 'MAX_F_SSP370'
   };
@@ -289,8 +287,8 @@ function getTemperatureGeoJSON(year, month, scenario) {
 
   // Filter data by selected year and month
   const selectedRows = monthlyData.filter(row =>
-    Number(row.YEAR) === Number(year) &&
-    Number(row.MO) === Number(month)
+    Number(row.year) === Number(year) &&
+    Number(row.month) === Number(month)
   );
 
   // Create coordinate-to-temperature lookup
@@ -396,8 +394,8 @@ async function initializeComparison() {
 
     // Load CSV and temperature GeoJSON
     const [csvData, geojsonData, zipData] = await Promise.all([
-        d3.csv('data/regional_monthly.csv', d3.autoType),
-        d3.json('data/temperature_regions.geojson'),
+        d3.csv('data/loca2_monthly.csv', d3.autoType),
+        d3.json('data/loca2_regions.geojson'),
         d3.json('data/san_diego_zipcodes.geojson')
     ]);
 
@@ -588,4 +586,3 @@ zipInput.addEventListener('keydown', event => {
 
 // Reset map
 zipResetButton.addEventListener('click', resetZipSearch);
-

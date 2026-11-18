@@ -78,6 +78,63 @@
 
     </section>
 
+    <!-- =====================================
+    INTRODUCTION
+    ====================================== -->
+
+    <section class="story-intro" id="story-intro" aria-label="Climate change introduction">
+      <div class="story-step story-global" data-reveal>
+        <div class="story-copy">
+          <p class="story-kicker">01 / THE BIG PICTURE</p>
+          <h2>Earth is getting warmer.</h2>
+          <p>Greenhouse gases trap heat in the atmosphere. As their concentrations rise, the planet's average surface temperature rises too.</p>
+          <p>But global averages don't tell us what that change could feel like in our own communities.</p>
+          <p class="story-source">Source: <a href="https://science.nasa.gov/earth/explore/earth-indicators/global-temperature/" target="_blank" rel="noopener noreferrer">NASA Global Temperature indicator</a></p>
+        </div>
+        <div class="story-planet" role="img" aria-label="Illustrative globe with a warm halo; not a quantitative temperature map">
+          <div class="planet-halo"></div>
+          <div class="planet-disc">
+            <div class="planet-lat planet-lat-1"></div>
+            <div class="planet-lat planet-lat-2"></div>
+            <div class="planet-long planet-long-1"></div>
+            <div class="planet-long planet-long-2"></div>
+          </div>
+          <span class="planet-caption">Illustration of global warming, not measured temperature data</span>
+        </div>
+      </div>
+
+      <div class="story-stat story-reveal" data-reveal>
+        <div class="story-stat-year">2024</div>
+        <div class="story-stat-copy">
+          <h3>Warmest year on record</h3>
+          <p>NASA's global surface-temperature analysis identifies 2024 as the warmest year since records began in 1880. This is a global finding, not a San Diego forecast.</p>
+          <a href="https://www.nasa.gov/news-release/nasa-releases-global-temperature-data/" target="_blank" rel="noopener noreferrer">Read NASA's analysis</a>
+        </div>
+      </div>
+
+      <div class="story-step story-local" data-reveal>
+        <div class="story-local-visual" aria-hidden="true">
+          <span class="story-local-mark">SD</span>
+          <div class="story-local-lines"><span></span><span></span><span></span></div>
+          <span class="story-local-subline">COAST · INLAND · MOUNTAINS</span>
+        </div>
+        <div class="story-copy">
+          <p class="story-kicker">02 / BRING IT HOME</p>
+          <h2>What does a warmer future mean for San Diego?</h2>
+          <p>San Diego County stretches from the coast to inland valleys and mountains. Temperatures are not the same everywhere, and neither are the projected changes.</p>
+          <p>Climate models let us compare different possible futures under different greenhouse gas emissions scenarios.</p>
+        </div>
+      </div>
+
+      <div class="story-cta" data-reveal>
+        <p class="story-kicker">03 / YOUR PART OF THE STORY</p>
+        <h2>Start with a place you know.</h2>
+        <p>Find your San Diego County ZIP code, then compare projected summer temperatures by year, month, and emissions scenario.</p>
+        <button id="story-zip-button" type="button" class="story-primary-button">Explore your ZIP code <span aria-hidden="true">↓</span></button>
+        <p class="story-caveat">ZIP-code search highlights an area. Temperature estimates represent larger climate-model grid cells, not a prediction for an individual address.</p>
+      </div>
+    </section>
+
 
     <!-- =====================================
          INTERACTIVE CLIMATE EXPLORER
@@ -132,10 +189,6 @@
         </label>
 
         <select id="scenario">
-
-          <option value="ssp126">
-            Low Emissions (SSP1-2.6)
-          </option>
 
           <option value="ssp245">
             Medium Emissions (SSP2-4.5)
@@ -300,8 +353,9 @@
       <p class="data-source">
 
         Data Source:
-        NASA NEX-GDDP-CMIP6 Climate Projections,
-        GFDL-ESM4 climate model.
+        LOCA2-CMIP6 downscaled climate projections via Cal-Adapt Analytics Engine,
+        ACCESS-CM2 climate model (r1i1p1f1). One model, not an ensemble.
+        Grid cells are approximately 6 km, ZIP-code results are approximate.
 
       </p>
 
