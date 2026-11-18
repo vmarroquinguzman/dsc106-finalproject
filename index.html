@@ -66,7 +66,7 @@
 
       <p>
         As greenhouse gas concentrations rise,
-        global temperatures are changing.
+        so are global temperatures.
         Scroll to explore how Earth's climate
         has changed and how it could continue
         changing through 2100.
@@ -114,25 +114,27 @@
 <section id="san-diego-story" class="story-section">
   <p class="story-label">02 / CLOSER TO HOME</p>
 
-  <h2>What climate change looks like locally</h2>
+  <h2>San Diego is already feeling the heat</h2>
 
+  <div class="heat-stat">
+    <span class="heat-stat-number">+10</span>
+    <div class="heat-stat-copy">
+      <h3>more days above 80°F per year</h3>
+      <p>Compared with 1970 in the City of San Diego</p>
+    </div>
+  </div>
   <p>
-    San Diego experienced periods of extreme heat
-    during September and October 2026.
-    These recent events raise a question:
-    what could summer temperatures look like
-    here in the coming decades?
+    San Diego's climate can change dramatically over just a few miles. The coast, 
+    inland valleys, mountains, and deserts experience heat differently. As 
+    temperatures continue to rise, what could that mean for your community?
   </p>
 
-  <p>
-    San Diego's coastline, inland valleys, and
-    mountains experience different temperatures.
-    Future warming may affect these places differently.
-  </p>
-
-  <p class="story-note">
-    Individual heatwaves cannot be attributed to
-    climate change without an attribution analysis.
+  <p class="heat-source">
+    Source:
+    <a href="https://www.sandiego.gov/sites/default/files/2026-06/heat-data-summary_final_06-2026.pdf"
+        target="_blank" rel="noopener noreferrer">
+      City of San Diego, Heat Data Summary (2026), p. 4
+    </a>
   </p>
 </section>
 
@@ -179,67 +181,8 @@
 
     <p id="zip-message" aria-live="polite"></p>
     </div>
-
-
       </div>
 </section>
-
-    <!-- =====================================
-    INTRODUCTION
-    ====================================== -->
-
-    <section class="story-intro" id="story-intro" aria-label="Climate change introduction">
-      <div class="story-step story-global" data-reveal>
-        <div class="story-copy">
-          <p class="story-kicker">01 / THE BIG PICTURE</p>
-          <h2>Earth is getting warmer.</h2>
-          <p>Greenhouse gases trap heat in the atmosphere. As their concentrations rise, the planet's average surface temperature rises too.</p>
-          <p>But global averages don't tell us what that change could feel like in our own communities.</p>
-          <p class="story-source">Source: <a href="https://science.nasa.gov/earth/explore/earth-indicators/global-temperature/" target="_blank" rel="noopener noreferrer">NASA Global Temperature indicator</a></p>
-        </div>
-        <div class="story-planet" role="img" aria-label="Illustrative globe with a warm halo; not a quantitative temperature map">
-          <div class="planet-halo"></div>
-          <div class="planet-disc">
-            <div class="planet-lat planet-lat-1"></div>
-            <div class="planet-lat planet-lat-2"></div>
-            <div class="planet-long planet-long-1"></div>
-            <div class="planet-long planet-long-2"></div>
-          </div>
-          <span class="planet-caption">Illustration of global warming, not measured temperature data</span>
-        </div>
-      </div>
-
-      <div class="story-stat story-reveal" data-reveal>
-        <div class="story-stat-year">2024</div>
-        <div class="story-stat-copy">
-          <h3>Warmest year on record</h3>
-          <p>NASA's global surface-temperature analysis identifies 2024 as the warmest year since records began in 1880. This is a global finding, not a San Diego forecast.</p>
-          <a href="https://www.nasa.gov/news-release/nasa-releases-global-temperature-data/" target="_blank" rel="noopener noreferrer">Read NASA's analysis</a>
-        </div>
-      </div>
-
-      <div class="story-step story-local" data-reveal>
-        <div class="story-local-visual" aria-hidden="true">
-          <span class="story-local-mark">SD</span>
-          <div class="story-local-lines"><span></span><span></span><span></span></div>
-          <span class="story-local-subline">COAST · INLAND · MOUNTAINS</span>
-        </div>
-        <div class="story-copy">
-          <p class="story-kicker">02 / BRING IT HOME</p>
-          <h2>What does a warmer future mean for San Diego?</h2>
-          <p>San Diego County stretches from the coast to inland valleys and mountains. Temperatures are not the same everywhere, and neither are the projected changes.</p>
-          <p>Climate models let us compare different possible futures under different greenhouse gas emissions scenarios.</p>
-        </div>
-      </div>
-
-      <div class="story-cta" data-reveal>
-        <p class="story-kicker">03 / YOUR PART OF THE STORY</p>
-        <h2>Start with a place you know.</h2>
-        <p>Find your San Diego County ZIP code, then compare projected summer temperatures by year, month, and emissions scenario.</p>
-        <button id="story-zip-button" type="button" class="story-primary-button">Explore your ZIP code <span aria-hidden="true">↓</span></button>
-        <p class="story-caveat">ZIP-code search highlights an area. Temperature estimates represent larger climate-model grid cells, not a prediction for an individual address.</p>
-      </div>
-    </section>
 
 
     <!-- =====================================
@@ -449,7 +392,7 @@
     and a ZIP-code search that highlights the user's selected area.
     We have also started integrating these visualizations into a
     larger narrative about climate change and its potential future impacts.
-    
+
     We expect the most challenging part of our project to be adding
     animations and creating a cohesive, interactive, and engaging
     story throughout the webpage.
