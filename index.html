@@ -30,6 +30,7 @@
 
   <!-- Main JavaScript -->
   <script type="module" src="main.js"></script>
+  <script type="module" src="globe.js"></script>
 
 </head>
 
@@ -54,29 +55,134 @@
 
   <main>
 
-    <!-- =====================================
-         INTRODUCTION
-    ====================================== -->
+    
+<!-- GLOBAL CLIMATE INTRODUCTION -->
+<section id="globe-story">
+  <div class="globe-sticky">
+    <div class="globe-copy">
+      <p class="story-label">01 / A WARMING WORLD</p>
 
-    <section class="introduction">
-
-      <h2>What Does the Future Hold?</h2>
-
-      <p>
-        Climate projections suggest that San Diego's
-        summers could become warmer as greenhouse gas
-        emissions continue to influence global temperatures.
-        But how much could temperatures change?
-      </p>
+      <h2>Our planet is getting warmer.</h2>
 
       <p>
-        Using NASA climate projections, this interactive
-        visualization allows you to compare possible
-        future summer temperatures across San Diego County
-        under different greenhouse gas emissions scenarios.
+        As greenhouse gas concentrations rise,
+        global temperatures are changing.
+        Scroll to explore how Earth's climate
+        has changed and how it could continue
+        changing through 2100.
       </p>
 
-    </section>
+      <p id="globe-era">
+        Historical CMIP6 simulation
+      </p>
+
+      <p id="globe-status">
+        Loading climate data...
+      </p>
+    </div>
+
+    <div class="globe-visual">
+      <canvas id="globe-canvas"></canvas>
+
+      <div class="globe-year">
+        <span>YEAR</span>
+        <strong id="globe-year">1950</strong>
+      </div>
+
+      <div class="globe-legend">
+        <p>
+          Temperature anomaly relative to
+          1951–1980 (°C)
+        </p>
+
+        <div class="globe-gradient"></div>
+
+        <div class="globe-legend-labels">
+          <span>-2°</span>
+          <span>0°</span>
+          <span>+2°</span>
+          <span>+4°</span>
+          <span>+6°</span>
+          <span>+8°</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSITION TO SAN DIEGO -->
+<section id="san-diego-story" class="story-section">
+  <p class="story-label">02 / CLOSER TO HOME</p>
+
+  <h2>What climate change looks like locally</h2>
+
+  <p>
+    San Diego experienced periods of extreme heat
+    during September and October 2026.
+    These recent events raise a question:
+    what could summer temperatures look like
+    here in the coming decades?
+  </p>
+
+  <p>
+    San Diego's coastline, inland valleys, and
+    mountains experience different temperatures.
+    Future warming may affect these places differently.
+  </p>
+
+  <p class="story-note">
+    Individual heatwaves cannot be attributed to
+    climate change without an attribution analysis.
+  </p>
+</section>
+
+<!-- PERSONALIZED TRANSITION -->
+<section id="zip-story" class="story-section">
+  <p class="story-label">03 / YOUR FUTURE CLIMATE</p>
+
+  <h2>What about where you live?</h2>
+
+  <p>
+    Enter your San Diego County ZIP code
+    to explore projected summer temperatures
+    near your community.
+  </p>
+
+  <!-- ZIP-code search -->
+    <div class="zip-search">
+        <label for="zip-input">
+            Explore Your ZIP Code
+        </label>
+
+        <p>
+            Enter a San Diego County ZIP code to zoom
+            into your region.
+        </p>
+
+        <div class="zip-search-row">
+            <input
+            type="text"
+            id="zip-input"
+            placeholder="e.g. 92122"
+            maxlength="5"
+            inputmode="numeric"
+            >
+
+            <button id="zip-search-button" type="button">
+            Search
+            </button>
+
+            <button id="zip-reset-button" type="button">
+            Reset Map
+            </button>
+    </div>
+
+    <p id="zip-message" aria-live="polite"></p>
+    </div>
+
+
+      </div>
+</section>
 
     <!-- =====================================
     INTRODUCTION
@@ -139,8 +245,8 @@
     <!-- =====================================
          INTERACTIVE CLIMATE EXPLORER
     ====================================== -->
-
-    <section class="explorer">
+    
+    <section class="explorer" id="climate-explorer">
 
       <h2>Explore San Diego's Future Climate</h2>
 
@@ -225,41 +331,6 @@
           </option>
 
         </select>
-
-    <!-- ZIP-code search -->
-    <div class="zip-search">
-        <label for="zip-input">
-            Explore Your ZIP Code
-        </label>
-
-        <p>
-            Enter a San Diego County ZIP code to zoom
-            into your region.
-        </p>
-
-        <div class="zip-search-row">
-            <input
-            type="text"
-            id="zip-input"
-            placeholder="e.g. 92122"
-            maxlength="5"
-            inputmode="numeric"
-            >
-
-            <button id="zip-search-button" type="button">
-            Search
-            </button>
-
-            <button id="zip-reset-button" type="button">
-            Reset Map
-            </button>
-    </div>
-
-    <p id="zip-message" aria-live="polite"></p>
-    </div>
-
-
-      </div>
 
 
       <!-- =====================================

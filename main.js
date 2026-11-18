@@ -544,10 +544,17 @@ function searchZipCode() {
   beforeMap.fitBounds(bounds, zoomOptions);
 
   zipMessage.textContent =
-    `Showing ZIP code ${zip}` +
-    (feature.properties.community
-      ? ` — ${feature.properties.community}`
-      : '');
+  `Showing ZIP code ${zip}` +
+  (feature.properties.community
+    ? ` — ${feature.properties.community}`
+    : '');
+
+// Scroll to the climate map after finding the ZIP code
+document.querySelector('#climate-explorer')
+  .scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
 }
 
 // Reset to the full county view

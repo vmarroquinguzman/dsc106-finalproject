@@ -606,3 +606,179 @@ html {
     animation: none;
   }
 }
+
+
+/* SCROLL-DRIVEN GLOBE */
+
+#globe-story {
+  height: 350vh;
+  margin: 0;
+  background: #0c1c2c;
+  color: white;
+}
+
+.globe-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  align-items: center;
+  padding: 50px 5%;
+  overflow: hidden;
+}
+
+.globe-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.story-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c77a55;
+}
+
+.globe-copy h2 {
+  font-size: clamp(38px, 5vw, 70px);
+  line-height: 1.1;
+  margin: 20px 0;
+}
+
+.globe-copy p {
+  line-height: 1.7;
+  max-width: 480px;
+}
+
+#globe-era {
+  margin-top: 30px;
+  color: #f1bc88;
+}
+
+#globe-status {
+  font-size: 12px;
+  color: #b9c9d9;
+}
+
+.globe-visual {
+  position: relative;
+  height: 80vh;
+}
+
+#globe-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.globe-year {
+  position: absolute;
+  top: 4%;
+  right: 8%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.globe-year span {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+}
+
+#globe-year {
+  font-size: clamp(40px, 6vw, 80px);
+}
+
+.globe-legend {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(85%, 450px);
+}
+
+.globe-legend p {
+  text-align: center;
+  font-size: 12px;
+}
+
+.globe-gradient {
+  height: 14px;
+  border-radius: 8px;
+  background: linear-gradient(
+    to right,
+    #256fa5,
+    #e6e8e1,
+    #f0c66d,
+    #eb8454,
+    #c8433e,
+    #741d38
+  );
+}
+
+.globe-legend-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 11px;
+}
+
+.story-section {
+  min-height: 80vh;
+  padding: 15vh max(30px, calc((100% - 1000px) / 2));
+}
+
+.story-section h2 {
+  font-size: clamp(36px, 5vw, 65px);
+  line-height: 1.15;
+  max-width: 850px;
+}
+
+.story-section > p {
+  max-width: 750px;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+#san-diego-story {
+  background: #f6e9dc;
+}
+
+#zip-story {
+  background: #faf8f4;
+}
+
+.story-note {
+  font-size: 13px !important;
+  color: #666;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 800px) {
+  .globe-sticky {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    padding: 25px;
+  }
+
+  .globe-copy h2 {
+    font-size: 32px;
+  }
+
+  .globe-visual {
+    height: 100%;
+    min-height: 250px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
