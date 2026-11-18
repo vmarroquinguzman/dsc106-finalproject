@@ -782,3 +782,37 @@ html {
   }
 }
 
+/* PROTOTYPE WRITEUP */
+
+.prototype-writeup {
+  max-width: 900px;
+  margin: 100px auto 60px;
+  padding: 40px;
+  background: #f0ede7;
+  border-radius: 12px;
+}
+
+.prototype-writeup h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+.prototype-writeup h3 {
+  font-size: 18px;
+  margin-top: 30px;
+  margin-bottom: 12px;
+}
+
+.prototype-writeup p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #444;
+}
+
+@media (max-width: 600px) {
+  .prototype-writeup {
+    padding: 25px;
+    margin: 60px 10px;
+  }
+}
+
