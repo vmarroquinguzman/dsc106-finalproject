@@ -1129,3 +1129,484 @@ body {
   min-height: 100vh;
   box-sizing: border-box;
 }
+
+/* ===================================
+   SCROLLAMA — GLOBAL CLIMATE STORY
+=================================== */
+
+#globe-story {
+  position: relative;
+  height: 500vh;
+}
+
+/* Keep the visualization on screen */
+.globe-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+/* Invisible track used by Scrollama */
+.globe-scroll-track {
+  position: absolute;
+  top: 50vh;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 100vh);
+  pointer-events: none;
+}
+
+/* Narrative text transitions */
+#globe-heading,
+#globe-narrative {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.globe-copy.is-changing #globe-heading,
+.globe-copy.is-changing #globe-narrative {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Scroll indicator transition */
+.scroll-indicator {
+  transition: opacity 0.5s ease;
+}
+
+.scroll-indicator.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  #globe-heading,
+  #globe-narrative,
+  .scroll-indicator {
+    transition: none;
+  }
+}
+
+
+/* ========================================
+   CHAPTER TRANSITION — RISING HEAT
+======================================== */
+
+#globe-story {
+  margin-bottom: 0;
+}
+
+#heat-transition {
+  position: relative;
+  width: 100vw;
+  max-width: none;
+
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-top: 0;
+  margin-bottom: 0;
+
+  height: 180vh;
+  background: #0d1d2c;
+
+  --heat-progress: 0;
+  --heat-text-opacity: 0;
+  --heat-text-offset: 30px;
+  --heat-fade: 0;
+}
+
+.heat-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #0d1d2c;
+}
+
+/* Animated warm glow */
+
+.heat-glow {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 110%,
+      #ffb347 0%,
+      #ed632b 25%,
+      #9b2525 50%,
+      transparent 75%
+    ),
+    linear-gradient(
+      to bottom,
+      #0d1d2c,
+      #481c23
+    );
+
+  opacity: var(--heat-progress);
+  pointer-events: none;
+}
+
+/* Fade into the next chapter */
+
+.heat-sticky::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #faf8f4;
+  opacity: var(--heat-fade);
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* Transition text */
+
+.heat-transition-copy {
+  position: relative;
+  z-index: 3;
+
+  max-width: 900px;
+  padding: 30px;
+
+  color: white;
+  text-align: center;
+
+  opacity: var(--heat-text-opacity);
+  transform: translateY(var(--heat-text-offset));
+}
+
+.heat-chapter {
+  font-size: 13px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-bottom: 35px;
+  color: #ffd4a8;
+}
+
+.heat-transition-copy h2 {
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin: 5px 0;
+}
+
+.heat-subtitle {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  line-height: 1.7;
+  margin-top: 30px;
+  color: #ffe1c4;
+}
+
+/* Floating fire embers */
+
+#embers {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: var(--heat-progress);
+  z-index: 2;
+}
+
+.ember {
+  position: absolute;
+  bottom: -20px;
+
+  width: var(--size);
+  height: var(--size);
+
+  background: #ffbb66;
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 8px #ff8c42,
+    0 0 18px #ff5722;
+
+  animation: riseEmber
+    var(--duration)
+    var(--delay)
+    linear infinite;
+}
+
+@keyframes riseEmber {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.9;
+  }
+
+  70% {
+    opacity: 0.5;
+  }
+
+  100% {
+    transform:
+      translate(var(--drift), -110vh);
+    opacity: 0;
+  }
+}
+
+/* Scrollama progress track */
+
+.heat-scroll-track {
+  position: absolute;
+  top: 50vh;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 100vh);
+  pointer-events: none;
+}
+
+/* Remove gap before Chapter 2 */
+
+#heat-transition + #san-diego-story {
+  margin-top: 0;
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .ember {
+    animation: none;
+    display: none;
+  }
+
+  #heat-transition {
+    height: auto;
+  }
+
+  .heat-sticky {
+    position: relative;
+    min-height: 350px;
+    height: auto;
+    padding: 80px 20px;
+  }
+
+  .heat-transition-copy {
+    opacity: 1;
+    transform: none;
+  }
+
+  .heat-scroll-track {
+    display: none;
+  }
+
+  .heat-sticky::after {
+    opacity: 0;
+  }
+}
+/* ========================================
+   FIRE TRANSITION
+======================================== */
+
+#fire-transition {
+  position: relative;
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-top: 0;
+  margin-bottom: 0;
+
+  height: 180vh;
+  background: #0d1d2c;
+
+  --fire-progress: 0;
+  --fire-fade: 0;
+}
+
+.fire-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #0d1d2c;
+}
+
+/* dark-to-warm background */
+.fire-background {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, #071421 0%, #0d1d2c 35%, #2a1317 70%, #4a1b17 100%);
+  opacity: 1;
+}
+
+/* warm glow that grows as you scroll */
+.fire-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 110%, rgba(255, 191, 94, 0.95) 0%, rgba(255, 128, 40, 0.8) 25%, rgba(196, 50, 25, 0.65) 45%, rgba(0, 0, 0, 0) 75%);
+  opacity: calc(var(--fire-progress) * 1.1);
+  pointer-events: none;
+}
+
+/* flames */
+.flame {
+  position: absolute;
+  bottom: -8vh;
+  border-radius: 50% 50% 45% 45%;
+  filter: blur(10px);
+  transform-origin: center bottom;
+  opacity: calc(0.15 + var(--fire-progress) * 0.85);
+  animation: flameFlicker 3s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+.flame::before {
+  content: "";
+  position: absolute;
+  inset: 18% 22%;
+  border-radius: 50%;
+  background: rgba(255, 220, 140, 0.8);
+  filter: blur(10px);
+}
+
+.flame-1 {
+  left: 6%;
+  width: 18vw;
+  height: 42vh;
+  background: radial-gradient(circle at 50% 80%, #ffd37a 0%, #ff9e42 35%, #e05524 70%, transparent 100%);
+  animation-delay: -0.5s;
+}
+
+.flame-2 {
+  left: 22%;
+  width: 20vw;
+  height: 55vh;
+  background: radial-gradient(circle at 50% 80%, #ffd37a 0%, #ff8f38 35%, #d94720 72%, transparent 100%);
+  animation-delay: -1.4s;
+}
+
+.flame-3 {
+  left: 40%;
+  width: 24vw;
+  height: 68vh;
+  background: radial-gradient(circle at 50% 80%, #ffe097 0%, #ffab48 30%, #ef6228 65%, transparent 100%);
+  animation-delay: -2.2s;
+}
+
+.flame-4 {
+  left: 62%;
+  width: 18vw;
+  height: 52vh;
+  background: radial-gradient(circle at 50% 80%, #ffd37a 0%, #ff953a 35%, #db4d20 72%, transparent 100%);
+  animation-delay: -0.8s;
+}
+
+.flame-5 {
+  left: 78%;
+  width: 16vw;
+  height: 40vh;
+  background: radial-gradient(circle at 50% 80%, #ffd37a 0%, #ff8f38 35%, #cc431d 72%, transparent 100%);
+  animation-delay: -1.8s;
+}
+
+@keyframes flameFlicker {
+  0% {
+    transform: scaleY(0.95) scaleX(0.98) translateY(0);
+  }
+  25% {
+    transform: scaleY(1.05) scaleX(1.02) translateY(-8px);
+  }
+  50% {
+    transform: scaleY(0.98) scaleX(0.97) translateY(-2px);
+  }
+  75% {
+    transform: scaleY(1.08) scaleX(1.03) translateY(-12px);
+  }
+  100% {
+    transform: scaleY(0.94) scaleX(0.99) translateY(-4px);
+  }
+}
+
+/* embers */
+#embers {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: calc(0.2 + var(--fire-progress) * 0.8);
+}
+
+.ember {
+  position: absolute;
+  bottom: -20px;
+  width: var(--size);
+  height: var(--size);
+  background: #ffcc73;
+  border-radius: 50%;
+  box-shadow:
+    0 0 8px #ff8c42,
+    0 0 16px #ff5722;
+  animation: emberRise var(--duration) var(--delay) linear infinite;
+}
+
+@keyframes emberRise {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.95;
+  }
+  70% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate(var(--drift), -110vh);
+    opacity: 0;
+  }
+}
+
+/* fade into chapter 2 background */
+.fire-sticky::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #faf8f4;
+  opacity: var(--fire-fade);
+  pointer-events: none;
+}
+
+/* scroll track */
+.fire-scroll-track {
+  position: absolute;
+  top: 50vh;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 100vh);
+  pointer-events: none;
+}
+
+/* no gap before chapter 2 */
+#fire-transition + #san-diego-story {
+  margin-top: 0;
+}
+
+/* accessibility */
+@media (prefers-reduced-motion: reduce) {
+  #fire-transition {
+    height: 120vh;
+  }
+
+  .fire-sticky {
+    position: relative;
+  }
+
+  .flame,
+  .ember {
+    animation: none;
+  }
+}

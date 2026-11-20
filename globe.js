@@ -1,6 +1,8 @@
-
 import * as d3 from
   'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
+
+import scrollama from
+  'https://cdn.jsdelivr.net/npm/scrollama@3.2.0/+esm';
 
 import { feature } from
   'https://cdn.jsdelivr.net/npm/topojson-client@3/+esm';
@@ -37,6 +39,90 @@ let climateData = null;
 let land = null;
 let cells = [];
 
+
+// ======================================
+// SCROLLAMA NARRATIVE
+// ======================================
+
+const heading = document.querySelector('#globe-heading');
+const narrative = document.querySelector('#globe-narrative');
+const globeCopy = document.querySelector('.globe-copy');
+const scrollIndicator = document.querySelector('.scroll-indicator');
+
+let storyProgress = 0;
+let currentStage = -1;
+let textTransition;
+
+const storyStages = [
+  {
+    startYear: 1950,
+    heading: "Our planet is getting warmer.",
+    text: "As greenhouse gas concentrations rise, so do global temperatures. Scroll to explore how Earth's climate has changed and how it could continue changing through 2100."
+  },
+
+  {
+    startYear: 2000,
+    heading: "A changing climate.",
+    text: "The effects of decades of greenhouse gas emissions are reflected in our changing climate. Notice how the temperature anomalies vary across the planet."
+  },
+
+  {
+    startYear: 2015,
+    heading: "The future is not set in stone.",
+    text: "Under the high-emissions SSP3-7.0 scenario, global temperatures could continue to rise throughout the century. Other emissions pathways could produce different outcomes."
+  },
+
+  {
+    startYear: 2080,
+    heading: "What does this mean for San Diego?",
+    text: "Global warming does not affect every region equally. From coastal communities to inland valleys, how could rising temperatures affect the place you call home?"
+  }
+];
+
+
+function updateNarrative(year) {
+
+  // Determine the appropriate narrative stage
+  let stageIndex = 0;
+
+  storyStages.forEach((stage, index) => {
+    if (year >= stage.startYear) {
+      stageIndex = index;
+    }
+  });
+
+  // Hide the scroll indicator once scrolling begins
+  scrollIndicator?.classList.toggle(
+    'is-hidden',
+    storyProgress > 0.05
+  );
+
+  // Avoid updating the text on every animation frame
+  if (stageIndex === currentStage) return;
+
+  currentStage = stageIndex;
+
+  const stage = storyStages[stageIndex];
+
+  clearTimeout(textTransition);
+
+  // Fade out the current text
+  globeCopy.classList.add('is-changing');
+
+  // Replace the text and fade it back in
+  textTransition = setTimeout(() => {
+
+    heading.textContent = stage.heading;
+    narrative.textContent = stage.text;
+
+    globeCopy.classList.remove('is-changing');
+
+  }, 300);
+
+}
+
+
+
 function makeCell(lat, lon, step = 5) {
   const west = (lon - step / 2 + 540) % 360 - 180;
   const east = (lon + step / 2 + 540) % 360 - 180;
@@ -54,12 +140,7 @@ function makeCell(lat, lon, step = 5) {
 }
 
 function scrollProgress() {
-  const total = section.offsetHeight - window.innerHeight;
-
-  return Math.max(0, Math.min(1,
-    -section.getBoundingClientRect().top /
-    Math.max(1, total)
-  ));
+  return storyProgress;
 }
 
 function draw() {
@@ -88,6 +169,7 @@ function draw() {
   );
 
   yearLabel.textContent = climateData ? year : '—';
+  updateNarrative(year);
 
   eraLabel.textContent = year < 2015
     ? 'Historical CMIP6 simulation'
@@ -253,12 +335,64 @@ async function initializeGlobe() {
   }
 }
 
-window.addEventListener(
-  'scroll', scheduleDraw, { passive: true }
+
+// ======================================
+// INITIALIZE SCROLLAMA
+// ======================================
+
+// Calculate initial progress in case the page
+// is refreshed halfway through the story
+storyProgress = Math.max(
+  0,
+  Math.min(
+    1,
+    -section.getBoundingClientRect().top /
+    Math.max(
+      1,
+      section.offsetHeight - window.innerHeight
+    )
+  )
 );
 
-window.addEventListener(
-  'resize', scheduleDraw
-);
+const scroller = scrollama();
 
+scroller
+  .setup({
+    step: '#globe-story .globe-scroll-track',
+    offset: 0.5,
+    progress: true,
+    threshold: 2,
+    debug: false
+  })
+
+  .onStepProgress(response => {
+
+    // Smoothly update the globe as the user scrolls
+    storyProgress = Math.max(
+      0,
+      Math.min(1, response.progress)
+    );
+
+    scheduleDraw();
+
+  })
+
+  .onStepExit(response => {
+
+    // Ensure the globe reaches the start or end
+    storyProgress =
+      response.direction === 'down' ? 1 : 0;
+
+    scheduleDraw();
+
+  });
+
+// Update the layout when the window changes size
+window.addEventListener('resize', () => {
+  scroller.resize();
+  scheduleDraw();
+});
+
+// Load the existing climate data
 initializeGlobe();
+

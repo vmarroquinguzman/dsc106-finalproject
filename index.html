@@ -31,6 +31,7 @@
   <!-- Main JavaScript -->
   <script type="module" src="main.js"></script>
   <script type="module" src="globe.js"></script>
+  <script type="module" src="transition.js"></script>
 
 </head>
 
@@ -45,15 +46,14 @@
     <div class="globe-copy">
       <p class="story-label"></p>
 
-      <h2>Our planet is getting warmer.</h2>
+      <h1 id="globe-heading">Our planet is getting warmer.</h1>
 
-      <p>
-        As greenhouse gas concentrations rise,
-        so are global temperatures.
-        Scroll to explore how Earth's climate
-        has changed and how it could continue
+      <p id="globe-narrative">
+        As greenhouse gas concentrations rise, so do
+        global temperatures. Scroll to explore how Earth's
+        climate has changed and how it could continue
         changing through 2100.
-      </p>
+      </p>        
 
       <p id="globe-era">
         Historical CMIP6 simulation
@@ -96,7 +96,25 @@
       </div>
     </div>
   </div>
+  <div class="globe-scroll-track" aria-hidden="true"></div>
 </section>
+
+<!-- FIRE TRANSITION -->
+<section id="fire-transition">
+  <div class="fire-sticky">
+    <div class="fire-background"></div>
+    <div class="fire-glow"></div>
+    <div id="embers" aria-hidden="true"></div>
+    <div class="flame flame-1"></div>
+    <div class="flame flame-2"></div>
+    <div class="flame flame-3"></div>
+    <div class="flame flame-4"></div>
+    <div class="flame flame-5"></div>
+  </div>
+
+  <div class="fire-scroll-track" aria-hidden="true"></div>
+</section>
+
 
 <!-- TRANSITION TO SAN DIEGO -->
 <section id="san-diego-story" class="story-section">
