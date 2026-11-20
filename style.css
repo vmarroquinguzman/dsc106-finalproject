@@ -2031,3 +2031,91 @@ main {
     padding: 20px;
   }
 }
+
+/* =====================================
+   INDEPENDENT COMPARISON CONTROLS
+===================================== */
+
+.year-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+.comparison-control-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  background: #162838;
+  border: 1px solid #30485b;
+  border-radius: 14px;
+  padding: 25px;
+}
+
+.comparison-control-panel .comparison-panel-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: #ff8c42;
+  margin: 0 0 10px;
+}
+
+.comparison-control-panel label {
+  font-size: 14px;
+  color: #b8c7d5;
+}
+
+.comparison-control-panel select {
+  width: 100%;
+  padding: 12px;
+
+  background: #0d1d2c;
+  color: #f1f5f9;
+
+  border: 1px solid #405567;
+  border-radius: 8px;
+
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.comparison-control-panel select:focus {
+  outline: 2px solid #ff8c42;
+}
+
+/* Map labels */
+
+.map-label {
+  background: rgba(13, 29, 44, 0.92);
+  color: #f1f5f9;
+  padding: 12px 18px;
+  border: 1px solid #405567;
+  border-radius: 8px;
+}
+
+.map-label span {
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.map-label small {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #ffb477;
+}
+
+@media (max-width: 700px) {
+  .year-comparison {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .comparison-control-panel {
+    padding: 18px;
+  }
+}

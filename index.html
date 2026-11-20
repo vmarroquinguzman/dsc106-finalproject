@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,547 +10,717 @@
 
   <!-- Website CSS -->
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="heat-days.css">
 
-  <!-- Mapbox GL JS CSS -->
+  <!-- Mapbox CSS -->
   <link
     href="https://api.mapbox.com/mapbox-gl-js/v3.35.0/mapbox-gl.css"
     rel="stylesheet"
   >
 
-  <!-- Mapbox GL JS -->
+  <!-- Mapbox JS -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.35.0/mapbox-gl.js"></script>
 
-  <!-- Mapbox Comparison Slider CSS -->
+  <!-- Mapbox Comparison -->
   <link
     rel="stylesheet"
     href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.css"
   >
 
-  <!-- Mapbox Comparison Slider JS -->
   <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.js"></script>
 
-  <!-- Main JavaScript -->
+  <!-- JavaScript Files -->
   <script type="module" src="main.js"></script>
   <script type="module" src="globe.js"></script>
   <script type="module" src="transition.js"></script>
   <script type="module" src="local-story.js"></script>
+  <script type="module" src="heat-days.js"></script>
 
 </head>
 
 <body>
 
-  <main>
+<main>
 
-    
-<!-- GLOBAL CLIMATE INTRODUCTION -->
-<section id="globe-story">
-  <div class="globe-sticky">
-    <div class="globe-copy">
-      <p class="story-label"></p>
+  <!-- CHAPTER 1: GLOBAL CLIMATE -->
 
-      <h1 id="globe-heading">Our planet is getting warmer.</h1>
+  <section id="globe-story">
 
-      <p id="globe-narrative">
-        As greenhouse gas concentrations rise, so do
-        global temperatures. Scroll to explore how Earth's
-        climate has changed and how it could continue
-        changing through 2100.
-      </p>        
+    <div class="globe-sticky">
 
-      <p id="globe-era">
-        Historical CMIP6 simulation
-      </p>
+      <div class="globe-copy">
 
-      <p id="globe-status">
-        Loading climate data...
-      </p>
-      <div class="scroll-indicator">
-        <span>Scroll to explore</span>
-        <span class="scroll-arrow">↓</span>
-      </div>
+        <p class="story-label"></p>
 
-    </div>
+        <h1 id="globe-heading">
+          Our planet is getting warmer.
+        </h1>
 
-    <div class="globe-visual">
-      <canvas id="globe-canvas"></canvas>
-
-      <div class="globe-year">
-        <span>YEAR</span>
-        <strong id="globe-year">1950</strong>
-      </div>
-
-      <div class="globe-legend">
-        <p>
-          Temperature anomaly relative to
-          1951–1980 (°C)
+        <p id="globe-narrative">
+          As greenhouse gas concentrations rise, so do
+          global temperatures. Scroll to explore how Earth's
+          climate has changed and how it could continue
+          changing through 2100.
         </p>
 
-        <div class="globe-gradient"></div>
+        <p id="globe-era">
+          Historical CMIP6 simulation
+        </p>
 
-        <div class="globe-legend-labels">
-          <span>-2°</span>
-          <span>0°</span>
-          <span>+2°</span>
-          <span>+4°</span>
-          <span>+6°</span>
-          <span>+8°</span>
+        <p id="globe-status">
+          Loading climate data...
+        </p>
+
+        <div class="scroll-indicator">
+          <span>Scroll to explore</span>
+          <span class="scroll-arrow">↓</span>
         </div>
+
       </div>
+
+      <div class="globe-visual">
+
+        <canvas id="globe-canvas"></canvas>
+
+        <div class="globe-year">
+          <span>YEAR</span>
+          <strong id="globe-year">1950</strong>
+        </div>
+
+        <div class="globe-legend">
+
+          <p>
+            Temperature anomaly relative to
+            1951–1980 (°C)
+          </p>
+
+          <div class="globe-gradient"></div>
+
+          <div class="globe-legend-labels">
+            <span>-2°</span>
+            <span>0°</span>
+            <span>+2°</span>
+            <span>+4°</span>
+            <span>+6°</span>
+            <span>+8°</span>
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
-  </div>
-  <div class="globe-scroll-track" aria-hidden="true"></div>
-</section>
 
-<!-- FIRE TRANSITION -->
-<section id="fire-transition">
-  <div class="fire-sticky">
-    <div class="fire-background"></div>
-    <div class="fire-glow"></div>
-    <div id="embers" aria-hidden="true"></div>
-    <div class="flame flame-1"></div>
-    <div class="flame flame-2"></div>
-    <div class="flame flame-3"></div>
-    <div class="flame flame-4"></div>
-    <div class="flame flame-5"></div>
-  </div>
+    <div class="globe-scroll-track" aria-hidden="true"></div>
 
-  <div class="fire-scroll-track" aria-hidden="true"></div>
-</section>
+  </section>
 
 
+  <!-- FIRE TRANSITION -->
 
-<!-- CHAPTER 2: CLOSER TO HOME -->
-<section id="san-diego-story" class="story-section">
+  <section id="fire-transition">
 
-  <div class="local-intro">
+    <div class="fire-sticky">
+
+      <div class="fire-background"></div>
+      <div class="fire-glow"></div>
+
+      <div id="embers" aria-hidden="true"></div>
+
+      <div class="flame flame-1"></div>
+      <div class="flame flame-2"></div>
+      <div class="flame flame-3"></div>
+      <div class="flame flame-4"></div>
+      <div class="flame flame-5"></div>
+
+    </div>
+
+    <div class="fire-scroll-track" aria-hidden="true"></div>
+
+  </section>
+
+
+  <!-- CHAPTER 2: CLOSER TO HOME -->
+
+  <section id="san-diego-story" class="story-section">
+
+    <div class="local-intro">
+
+      <p class="story-label"></p>
+
+      <h2>
+        But warming doesn't affect everyone equally.
+      </h2>
+
+      <p>
+        Even within San Diego County, our experience
+        of heat can vary dramatically depending on
+        where we live.
+      </p>
+
+    </div>
+
+    <div class="local-scrolly">
+
+      <!-- Sticky Photograph -->
+
+      <div class="local-visual">
+
+        <img
+          id="local-image"
+          src="images/san-diego.jpg"
+          alt="San Diego County landscape"
+        >
+
+        <div id="local-image-caption">
+          San Diego County
+        </div>
+
+      </div>
+
+
+      <!-- Scrollama Steps -->
+
+      <div class="local-steps">
+
+        <div class="local-step" data-stage="0">
+
+          <h3>
+            San Diego is already feeling the heat.
+          </h3>
+
+          <div class="local-stat">+10</div>
+
+          <p>
+            More days above 80°F per year compared
+            with 1970 in the City of San Diego.
+          </p>
+
+          <p class="heat-source">
+
+            Source:
+
+            <a
+              href="https://www.sandiego.gov/sites/default/files/2026-06/heat-data-summary_final_06-2026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              City of San Diego, Heat Data Summary (2026), p. 4
+            </a>
+
+          </p>
+
+        </div>
+
+
+        <div class="local-step" data-stage="1">
+
+          <h3>Along the coast.</h3>
+
+          <p>
+            Communities near the Pacific Ocean benefit
+            from the cooling influence of the water,
+            which helps moderate summer temperatures.
+          </p>
+
+        </div>
+
+
+        <div class="local-step" data-stage="2">
+
+          <h3>Just a few miles inland.</h3>
+
+          <p>
+            Away from the ocean, inland valleys can
+            experience much hotter summer days.
+          </p>
+
+        </div>
+
+
+        <div class="local-step" data-stage="3">
+
+          <h3>Further east.</h3>
+
+          <p>
+            San Diego County's desert communities
+            experience a very different climate
+            from those along the coast.
+          </p>
+
+          <p>
+            As the planet warms, how might these
+            differences change?
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CHAPTER 3: ZIP CODE SEARCH -->
+
+  <section id="zip-story" class="story-section">
 
     <p class="story-label"></p>
 
-    <h2>But warming doesn't affect everyone equally.</h2>
+    <h2>What about where you live?</h2>
 
     <p>
-      Even within San Diego County, our experience
-      of heat can vary dramatically depending on
-      where we live.
+      Enter your San Diego County ZIP code
+      to explore projected summer temperatures
+      near your community.
     </p>
 
-  </div>
-
-  <div class="local-scrolly">
-
-    <!-- Sticky visual -->
-    <div class="local-visual">
-
-      <img
-        id="local-image"
-        src="images/san-diego.jpg"
-        alt="San Diego County landscape"
-      >
-
-      <div id="local-image-caption">
-        San Diego County
-      </div>
-
-    </div>
-
-    <!-- Scrollama storytelling steps -->
-    <div class="local-steps">
-
-      <div class="local-step" data-stage="0">
-
-        <h3>San Diego is already feeling the heat.</h3>
-
-        <div class="local-stat">+10</div>
-
-        <p>
-          More days above 80°F per year compared
-          with 1970 in the City of San Diego.
-        </p>
-
-        <p class="heat-source">
-          Source:
-          <a href="https://www.sandiego.gov/sites/default/files/2026-06/heat-data-summary_final_06-2026.pdf"
-             target="_blank"
-             rel="noopener noreferrer">
-            City of San Diego, Heat Data Summary (2026), p. 4
-          </a>
-        </p>
-
-      </div>
-
-      <div class="local-step" data-stage="1">
-
-        <h3>Along the coast.</h3>
-
-        <p>
-          Communities near the Pacific Ocean benefit
-          from the cooling influence of the water,
-          which helps moderate summer temperatures.
-        </p>
-
-      </div>
-
-      <div class="local-step" data-stage="2">
-
-        <h3>Just a few miles inland.</h3>
-
-        <p>
-          Away from the ocean, inland valleys can
-          experience much hotter summer days.
-        </p>
-
-      </div>
-
-      <div class="local-step" data-stage="3">
-
-        <h3>Further east.</h3>
-
-        <p>
-          San Diego County's desert communities
-          experience a very different climate
-          from those along the coast.
-        </p>
-
-        <p>
-          As the planet warms, how might these
-          differences change?
-        </p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- PERSONALIZED TRANSITION -->
-<section id="zip-story" class="story-section">
-  <p class="story-label"></p>
-
-  <h2>What about where you live?</h2>
-
-  <p>
-    Enter your San Diego County ZIP code
-    to explore projected summer temperatures
-    near your community.
-  </p>
-
-  <!-- ZIP-code search -->
     <div class="zip-search">
-        <label for="zip-input">
-            Explore Your ZIP Code
-        </label>
 
-        <p>
-            Enter a San Diego County ZIP code to zoom
-            into your region.
-        </p>
-
-        <div class="zip-search-row">
-            <input
-            type="text"
-            id="zip-input"
-            placeholder="e.g. 92122"
-            maxlength="5"
-            inputmode="numeric"
-            >
-
-            <button id="zip-search-button" type="button">
-            Search
-            </button>
-
-            <button id="zip-reset-button" type="button">
-            Reset Map
-            </button>
-    </div>
-
-    <p id="zip-message" aria-live="polite"></p>
-    </div>
-      </div>
-</section>
-
-
-    <!-- =====================================
-         INTERACTIVE CLIMATE EXPLORER
-    ====================================== -->
-    
-    <section class="explorer" id="climate-explorer">
-
-      <h2>Explore San Diego's Future Climate</h2>
+      <label for="zip-input">
+        Explore Your ZIP Code
+      </label>
 
       <p>
-        Select two years, choose a month and emissions
-        scenario, and drag the slider across the map
-        to explore projected temperature differences.
+        Enter a San Diego County ZIP code to zoom
+        into your region.
       </p>
 
+      <div class="zip-search-row">
 
-      <!-- =====================================
-           INTERACTIVE CONTROLS
-      ====================================== -->
+        <input
+          type="text"
+          id="zip-input"
+          placeholder="e.g. 92122"
+          maxlength="5"
+          inputmode="numeric"
+        >
 
-      <div class="controls">
+        <button id="zip-search-button" type="button">
+          Search
+        </button>
 
-        <!-- Two-year comparison -->
-        <div class="year-comparison">
+        <button id="zip-reset-button" type="button">
+          Reset Map
+        </button>
 
-          <div class="year-control">
+      </div>
 
-            <label for="before-year">
-              First Year
-            </label>
+      <p id="zip-message" aria-live="polite"></p>
 
-            <select id="before-year"></select>
+    </div>
 
-          </div>
-
-          <div class="year-control">
-
-            <label for="after-year">
-              Second Year
-            </label>
-
-            <select id="after-year"></select>
-
-          </div>
-
-        </div>
+  </section>
 
 
-        <!-- Emissions scenario selector -->
-        <label for="scenario">
-          Emissions Scenario
-        </label>
+  <!-- INTERACTIVE CLIMATE EXPLORER -->
 
-        <select id="scenario">
+  <section id="climate-explorer" class="explorer">
 
-          <option value="ssp245">
-            Medium Emissions (SSP2-4.5)
-          </option>
+    <h2>Explore San Diego's Future Climate</h2>
 
-          <option value="ssp370">
-            High Emissions (SSP3-7.0)
-          </option>
-
-        </select>
+    <p>
+      Select two years and an emissions scenario
+      for each map, choose a month, and drag
+      the slider across the map to explore
+      projected temperature differences.
+    </p>
 
 
-        <!-- Month selector -->
-        <label for="month">
-          Select Month
-        </label>
+    <!-- MAP CONTROLS -->
 
-        <select id="month">
+    <div class="controls">
 
-          <option value="6">
-            June
-          </option>
+      <div class="year-comparison">
 
-          <option value="7" selected>
-            July
-          </option>
+        <!-- Left Map Controls -->
 
-          <option value="8">
-            August
-          </option>
+        <div class="comparison-control-panel">
 
-          <option value="9">
-            September
-          </option>
+          <p class="comparison-panel-label">
+            LEFT MAP
+          </p>
 
-        </select>
+          <label for="before-year">
+            Select Year
+          </label>
 
+          <select id="before-year"></select>
 
-        <!-- PERSONALIZED TEMPERATURE SUMMARY -->
-        <div id="zip-summary" hidden>
-            <p class="summary-eyebrow">
-                YOUR COMMUNITY, YOUR FUTURE
-            </p>
-            <h3 id="summary-location">
-                Your ZIP Code
-            </h3>
+          <label for="before-scenario">
+            Emissions Scenario
+          </label>
 
-            <p id="summary-context"></p>
+          <select id="before-scenario">
 
-            <div class="summary-grid">
+            <option value="ssp245" selected>
+              Medium Emissions (SSP2-4.5)
+            </option>
 
-                <div class="summary-card">
-                <span id="summary-before-year">2020</span>
-                <strong id="summary-before-temp">—</strong>
-                <p>Projected daily high</p>
-                </div>
+            <option value="ssp370">
+              High Emissions (SSP3-7.0)
+            </option>
 
-                <div class="summary-card">
-                <span id="summary-after-year">2050</span>
-                <strong id="summary-after-temp">—</strong>
-                <p>Projected daily high</p>
-                </div>
-
-                <div class="summary-card">
-                <span>Temperature Difference</span>
-                <strong id="summary-difference">—</strong>
-                <p id="summary-change-text">Compared years</p>
-                </div>
-
-            </div>
-
-            <p id="summary-note">
-                Estimated monthly average daily maximum
-                temperatures using LOCA2 climate projections.
-            </p>
-        </div>
-    
-
-      <!-- =====================================
-           MAPBOX COMPARISON
-      ====================================== -->
-
-      <div id="comparison-container">
-
-        <!-- LEFT MAP -->
-        <div
-          id="before"
-          class="comparison-map">
-        </div>
-
-        <!-- RIGHT MAP -->
-        <div
-          id="after"
-          class="comparison-map">
-        </div>
-
-
-        <!-- Left year label -->
-        <div class="map-label before-label">
-
-          <span id="before-year-label">
-            2020
-          </span>
+          </select>
 
         </div>
 
 
-        <!-- Right year label -->
-        <div class="map-label after-label">
+        <!-- Right Map Controls -->
 
-          <span id="future-year">
-            2050
-          </span>
+        <div class="comparison-control-panel">
+
+          <p class="comparison-panel-label">
+            RIGHT MAP
+          </p>
+
+          <label for="after-year">
+            Select Year
+          </label>
+
+          <select id="after-year"></select>
+
+          <label for="after-scenario">
+            Emissions Scenario
+          </label>
+
+          <select id="after-scenario">
+
+            <option value="ssp245">
+              Medium Emissions (SSP2-4.5)
+            </option>
+
+            <option value="ssp370" selected>
+              High Emissions (SSP3-7.0)
+            </option>
+
+          </select>
 
         </div>
 
       </div>
 
 
-      <!-- =====================================
-           TEMPERATURE LEGEND
-      ====================================== -->
+      <!-- Month Selector -->
 
-      <div class="temperature-legend">
+      <label for="month">
+        Select Month
+      </label>
 
-        <h3>
-          Average Daily High Temperature (°F)
-        </h3>
+      <select id="month">
+        <option value="6">June</option>
+        <option value="7" selected>July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+      </select>
 
-        <div class="legend-gradient"></div>
+    </div>
 
-        <div class="legend-labels">
 
-          <span>65°F</span>
-          <span>75°F</span>
-          <span>85°F</span>
-          <span>95°F</span>
-          <span>105°F</span>
+    <!-- PERSONALIZED TEMPERATURE SUMMARY -->
+
+    <div id="zip-summary" hidden>
+
+      <p class="summary-eyebrow">
+        YOUR COMMUNITY, YOUR FUTURE
+      </p>
+
+      <h3 id="summary-location">
+        Your ZIP Code
+      </h3>
+
+      <p id="summary-context"></p>
+
+      <div class="summary-grid">
+
+        <div class="summary-card">
+
+          <span id="summary-before-year">2020</span>
+
+          <strong id="summary-before-temp">—</strong>
+
+          <p>Projected daily high</p>
 
         </div>
 
-        <p>
-          Green represents cooler temperatures,
-          while red represents hotter temperatures.
-        </p>
+
+        <div class="summary-card">
+
+          <span id="summary-after-year">2050</span>
+
+          <strong id="summary-after-temp">—</strong>
+
+          <p>Projected daily high</p>
+
+        </div>
+
+
+        <div class="summary-card">
+
+          <span>Temperature Difference</span>
+
+          <strong id="summary-difference">—</strong>
+
+          <p id="summary-change-text">
+            Compared projections
+          </p>
+
+        </div>
 
       </div>
 
-
-      <!-- =====================================
-           MAP DESCRIPTION
-      ====================================== -->
-
-      <p id="map-description">
-
-        Select two years and an emissions scenario,
-        then drag the comparison slider to explore
-        projected temperature differences.
-
+      <p id="summary-note">
+        Estimated monthly average daily maximum
+        temperatures using LOCA2 climate projections.
       </p>
 
+    </div>
 
-      <!-- =====================================
-           DATA SOURCE NOTE
-      ====================================== -->
 
-      <p class="data-source">
+    <!-- ORIGINAL MAPBOX COMPARISON -->
 
-        Data Source:
-        LOCA2-CMIP6 downscaled climate projections via Cal-Adapt Analytics Engine,
-        ACCESS-CM2 climate model (r1i1p1f1). One model, not an ensemble.
-        Grid cells are approximately 6 km, ZIP-code results are approximate.
+    <div id="comparison-container">
 
+      <div id="before" class="comparison-map"></div>
+
+      <div id="after" class="comparison-map"></div>
+
+      <!-- Map Labels -->
+
+      <div class="map-label before-label">
+
+        <span id="before-year-label">2020</span>
+
+        <small id="before-scenario-label">
+          SSP2-4.5
+        </small>
+
+      </div>
+
+      <div class="map-label after-label">
+
+        <span id="future-year">2050</span>
+
+        <small id="after-scenario-label">
+          SSP3-7.0
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <!-- TEMPERATURE LEGEND -->
+
+    <div class="temperature-legend">
+
+      <h3>
+        Average Daily High Temperature (°F)
+      </h3>
+
+      <div class="legend-gradient"></div>
+
+      <div class="legend-labels">
+        <span>65°F</span>
+        <span>75°F</span>
+        <span>85°F</span>
+        <span>95°F</span>
+        <span>105°F</span>
+      </div>
+
+      <p>
+        Green represents cooler temperatures,
+        while red represents hotter temperatures.
       </p>
 
-    </section>
+    </div>
 
-    <!-- PROTOTYPE WRITEUP -->
-<section class="prototype-writeup">
-  <h2>Prototype Writeup</h2>
+
+    <!-- MAP DESCRIPTION -->
+
+    <p id="map-description">
+
+      Select two years and an emissions scenario
+      for each map, then drag the comparison slider
+      to explore projected temperature differences.
+
+    </p>
+
+
+    <!-- DATA SOURCE -->
+
+    <p class="data-source">
+
+      Data Source:
+      LOCA2-CMIP6 downscaled climate projections
+      via Cal-Adapt Analytics Engine,
+      ACCESS-CM2 climate model (r1i1p1f1).
+      One model, not an ensemble.
+      Grid cells are approximately 6 km.
+      ZIP-code results are approximate.
+
+    </p>
+
+  </section>
+
+
+  <!-- CHAPTER 4: NEW EXTREME HEAT LINE GRAPH -->
+
+  <section id="heat-days-story">
+
+    <p class="heat-eyebrow">
+      EXTREME HEAT
+    </p>
+
+    <h2>
+      It's not just about warmer summers.
+    </h2>
+
+    <p>
+      How frequently could summer days reach
+      extreme temperatures? Explore projected
+      counts for the NASA climate grid cell
+      near downtown San Diego.
+    </p>
+
+    <div class="heat-chart-panel">
+
+      <label for="heat-threshold">
+        Temperature threshold
+      </label>
+
+      <select id="heat-threshold">
+
+        <option value="85">85°F</option>
+
+        <option value="90" selected>90°F</option>
+
+        <option value="95">95°F</option>
+
+        <option value="100">100°F</option>
+
+      </select>
+      <!-- YEAR INTERVAL SELECTOR -->
+      <div class="heat-interval-selector">
+        <label for="heat-interval">
+        Year Interval
+        </label>
+        <select id="heat-interval">
+        <option value="10">Every 10 Years</option>
+        <option value="20" selected>Every 20 Years</option>
+        </select>
+      </div>
+
+      <!-- REMOVED DUPLICATE YEAR INTERVAL SELECTOR -->
+
+      <p id="heat-chart-status" role="status">
+        Loading daily temperature projections...
+      </p>
+
+      <div id="heat-line-chart"></div>
+
+      <div id="heat-chart-detail" aria-live="polite">
+        Hover over a bar to explore projected extreme heat.
+        Click an emissions scenario in the legend to
+        hide or reveal its bars.
+      </div>
+
+    </div>
+
+    <p class="heat-chart-source">
+      Source: NASA NEX-GDDP-CMIP6 daily climate
+      projections. Summer is defined here as June
+      through September. This chart represents a
+      regional climate grid cell, not individual
+      ZIP codes. Projections are scenario-dependent.
+    </p>
+
+  </section>
+
+
+  <!-- PROTOTYPE WRITEUP -->
+
+  <section class="prototype-writeup">
+
+    <h2>Prototype Writeup</h2>
+
+    <p>
+
+      So far, we have created a rough outline of our
+      webpage with several sections and added initial
+      drafts of our main visualizations.
+
+      We created an interactive globe that rotates
+      as the user scrolls using CMIP6 data to show
+      global warming over time.
+
+      We also created our first version of the
+      San Diego temperature map using downscaled
+      LOCA2-CMIP6 data, which allows users to compare
+      projected summer temperatures from 2015 to
+      2100 under different emissions scenarios.
+
+      We added a draggable comparison slider,
+      temperature tooltips, and a ZIP-code search
+      that highlights the user's selected area.
+
+      We have also started integrating these
+      visualizations into a larger narrative
+      about climate change and its potential
+      future impacts.
+
+      We expect the most challenging part of our
+      project to be adding animations and creating
+      a cohesive, interactive, and engaging story
+      throughout the webpage.
+
+      We plan to guide users through the following
+      sequence: introduce global climate change
+      using historical warming data, transition
+      into San Diego County and its recent heatwaves,
+      prompt users to enter their ZIP code, and
+      explore potential future temperatures under
+      different emissions scenarios.
+
+      We may also add a comparison of warming in
+      coastal versus inland regions to help users
+      understand how the impacts of warming may
+      vary across the county.
+
+      One challenge will be making the transitions
+      between sections feel clean and smooth since
+      don't have much experience with this type of
+      animation yet, but we are looking forward to
+      experimenting with this and making our webpage
+      look really cool.
+
+      We also want to balance providing enough
+      context and scientific background to explain
+      the data with keeping the webpage engaging
+      and easy to navigate.
+
+    </p>
+
+  </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="project-footer">
+
+  <h3>How Hot Will San Diego's Summers Get?</h3>
 
   <p>
-    So far, we have created a rough outline of our webpage with
-    several sections and added initial drafts of our main visualizations.
-    We created an interactive globe that rotates as the user scrolls
-    using CMIP6 data to show global warming over time.
-    We also created our first version of the San Diego temperature map
-    using downscaled LOCA2-CMIP6 data, which allows users to compare
-    projected summer temperatures from 2015 to 2100 under different
-    emissions scenarios.
-    We added a draggable comparison slider, temperature tooltips,
-    and a ZIP-code search that highlights the user's selected area.
-    We have also started integrating these visualizations into a
-    larger narrative about climate change and its potential future impacts.
-
-    We expect the most challenging part of our project to be adding
-    animations and creating a cohesive, interactive, and engaging
-    story throughout the webpage.
-    We plan to guide users through the following sequence:
-    introduce global climate change using historical warming data,
-    transition into San Diego County and its recent heatwaves,
-    prompt users to enter their ZIP code, and explore potential
-    future temperatures under different emissions scenarios.
-    We may also add a comparison of warming in coastal versus
-    inland regions to help users understand how the impacts
-    of warming may vary across the county.
-    One challenge will be making the transitions between sections
-    feel clean and smooth since don't have much experience with
-    this type of animation yet, but we are looking forward to experimenting
-    with this and making our webpage look really cool.
-    We also want to balance providing enough context and
-    scientific background to explain the data with keeping
-    the webpage engaging and easy to navigate.
+    Kate Oberhauser · Vanessa Marroquin Guzman · Casee Hong
   </p>
-</section>
 
-  </main>
-    <footer class="project-footer">
+  <p>DSC 106 | UC San Diego | Fall 2026</p>
 
-        <h3>How Hot Will San Diego's Summers Get?</h3>
-
-        <p>Kate Oberhauser · Vanessa Marroquin Guzman · Casee Hong</p>
-
-        <p>DSC 106 | UC San Diego | Fall 2026</p>
-
-    </footer>
-
+</footer>
 
 </body>
+
 </html>
