@@ -1931,3 +1931,103 @@ main {
   background: #091521;
   border-top: 1px solid #263b4d;
 }
+
+/* =====================================
+   PERSONALIZED TEMPERATURE SUMMARY
+===================================== */
+
+#zip-summary {
+  background: #162838;
+  border: 1px solid #30485b;
+  border-radius: 16px;
+  padding: 30px;
+  margin: 25px 0 35px;
+}
+
+#zip-summary[hidden] {
+  display: none;
+}
+
+#zip-summary .summary-eyebrow {
+  color: #ff8c42;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+}
+
+#summary-location {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: #f1f5f9;
+  margin: 10px 0;
+}
+
+#summary-context {
+  color: #b8c7d5;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.summary-card {
+  background: #0d1d2c;
+  border: 1px solid #30485b;
+  border-radius: 12px;
+  padding: 25px 18px;
+  text-align: center;
+}
+
+.summary-card span {
+  display: block;
+  color: #b8c7d5;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.summary-card strong {
+  display: block;
+  color: #f1f5f9;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.summary-card p {
+  color: #91a5b7;
+  font-size: 12px;
+  margin: 12px 0 0;
+}
+
+#summary-after-temp {
+  color: #ffb477;
+}
+
+#summary-difference.warmer {
+  color: #ff8c42;
+}
+
+#summary-difference.cooler {
+  color: #7dc4f5;
+}
+
+#summary-note {
+  color: #91a5b7;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 25px 0 0;
+}
+
+@media (max-width: 700px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #zip-summary {
+    padding: 20px;
+  }
+}

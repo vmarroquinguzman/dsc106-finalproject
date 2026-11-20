@@ -1,5 +1,5 @@
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
-
+import * as turf from 'https://cdn.jsdelivr.net/npm/@turf/turf@7.2.0/+esm';
 // ======================================
 // 1. MAPBOX ACCESS TOKEN
 // ======================================
@@ -382,6 +382,7 @@ function updateComparison() {
     `${monthName} ${afterYear} under ${scenarioName}. ` +
     `Drag the slider to compare projected temperatures.`;
 
+  updateZipSummary();
 }
 
 // ======================================
@@ -527,6 +528,7 @@ function searchZipCode() {
   }
 
   selectedZip = zip;
+  updateZipSummary();
 
   // Highlight its real geographic boundary
   highlightZip(zip);
@@ -561,6 +563,7 @@ document.querySelector('#climate-explorer')
 function resetZipSearch() {
   zipInput.value = '';
   selectedZip = null;
+  document.querySelector('#zip-summary').hidden = true;
   zipMessage.textContent = '';
 
   if (!dataReady) return;
@@ -593,3 +596,252 @@ zipInput.addEventListener('keydown', event => {
 
 // Reset map
 zipResetButton.addEventListener('click', resetZipSearch);
+
+
+// ======================================
+// PERSONALIZED ZIP-CODE STATISTICS
+// ======================================
+
+// Cache geographic overlaps so they only need
+// to be calculated once per ZIP code
+const zipOverlapCache = new Map();
+
+function getZipOverlaps(zipFeature) {
+
+  const zip = String(zipFeature.properties.zip);
+
+  if (zipOverlapCache.has(zip)) {
+    return zipOverlapCache.get(zip);
+  }
+
+  const overlaps = [];
+  const zipBounds = turf.bbox(zipFeature);
+
+  temperatureRegions.features.forEach((cell, index) => {
+
+    const cellBounds = turf.bbox(cell);
+
+    // Skip climate cells outside the ZIP bounding box
+    if (
+      cellBounds[2] < zipBounds[0] ||
+      cellBounds[0] > zipBounds[2] ||
+      cellBounds[3] < zipBounds[1] ||
+      cellBounds[1] > zipBounds[3]
+    ) {
+      return;
+    }
+
+    // Find the overlapping geographic area
+    const intersection = turf.intersect(
+      turf.featureCollection([zipFeature, cell])
+    );
+
+    if (!intersection) return;
+
+    const overlapArea = turf.area(intersection);
+
+    if (overlapArea > 0) {
+      overlaps.push({
+        index: index,
+        area: overlapArea
+      });
+    }
+
+  });
+
+  zipOverlapCache.set(zip, overlaps);
+
+  return overlaps;
+}
+
+
+// Update the personalized summary
+
+function updateZipSummary() {
+
+  const summary = document.querySelector('#zip-summary');
+
+  if (!dataReady || !selectedZip) {
+    summary.hidden = true;
+    return;
+  }
+
+  const zipFeature = zipFeatures.find(
+    feature =>
+      String(feature.properties.zip) === String(selectedZip)
+  );
+
+  if (!zipFeature) {
+    summary.hidden = true;
+    return;
+  }
+
+  const beforeYear = Number(beforeYearSelect.value);
+  const afterYear = Number(afterYearSelect.value);
+  const month = Number(monthSelect.value);
+  const scenario = scenarioSelect.value;
+
+  const beforeData = getTemperatureGeoJSON(
+    beforeYear,
+    month,
+    scenario
+  );
+
+  const afterData = getTemperatureGeoJSON(
+    afterYear,
+    month,
+    scenario
+  );
+
+  const overlaps = getZipOverlaps(zipFeature);
+
+  let beforeTotal = 0;
+  let afterTotal = 0;
+  let totalArea = 0;
+
+  // Calculate both temperatures using the same
+  // geographic areas for a fair comparison
+  overlaps.forEach(overlap => {
+
+    const beforeTemp =
+      beforeData.features[overlap.index]
+        .properties.temperature;
+
+    const afterTemp =
+      afterData.features[overlap.index]
+        .properties.temperature;
+
+    if (
+      Number.isFinite(beforeTemp) &&
+      Number.isFinite(afterTemp)
+    ) {
+
+      beforeTotal += beforeTemp * overlap.area;
+      afterTotal += afterTemp * overlap.area;
+
+      totalArea += overlap.area;
+
+    }
+
+  });
+
+  const beforeTemp = totalArea > 0
+    ? beforeTotal / totalArea
+    : null;
+
+  const afterTemp = totalArea > 0
+    ? afterTotal / totalArea
+    : null;
+
+  const difference = totalArea > 0
+    ? afterTemp - beforeTemp
+    : null;
+
+
+  // LOCATION
+
+  const community = zipFeature.properties.community;
+
+  document.querySelector('#summary-location')
+    .textContent = community
+      ? `${community} · ZIP ${selectedZip}`
+      : `ZIP ${selectedZip}`;
+
+
+  // SELECTED MONTH AND SCENARIO
+
+  const monthName =
+    monthSelect.selectedOptions[0].text;
+
+  const scenarioName =
+    scenarioSelect.selectedOptions[0].text;
+
+  document.querySelector('#summary-context')
+    .textContent = `${monthName} · ${scenarioName}`;
+
+
+  // SELECTED YEARS
+
+  document.querySelector('#summary-before-year')
+    .textContent = beforeYear;
+
+  document.querySelector('#summary-after-year')
+    .textContent = afterYear;
+
+
+  // TEMPERATURES
+
+  document.querySelector('#summary-before-temp')
+    .textContent = beforeTemp === null
+      ? 'N/A'
+      : `${beforeTemp.toFixed(1)}°F`;
+
+  document.querySelector('#summary-after-temp')
+    .textContent = afterTemp === null
+      ? 'N/A'
+      : `${afterTemp.toFixed(1)}°F`;
+
+
+  // TEMPERATURE DIFFERENCE
+
+  const differenceElement =
+    document.querySelector('#summary-difference');
+
+  const changeText =
+    document.querySelector('#summary-change-text');
+
+  differenceElement.classList.remove(
+    'warmer',
+    'cooler'
+  );
+
+  if (difference === null) {
+
+    differenceElement.textContent = 'N/A';
+    changeText.textContent = 'Insufficient data';
+
+  } else {
+
+    const roundedDifference =
+      Number(difference.toFixed(1));
+
+    differenceElement.textContent =
+      `${roundedDifference > 0 ? '+' : ''}` +
+      `${roundedDifference.toFixed(1)}°F`;
+
+    if (roundedDifference > 0) {
+
+      differenceElement.classList.add('warmer');
+      changeText.textContent = 'Warmer';
+
+    } else if (roundedDifference < 0) {
+
+      differenceElement.classList.add('cooler');
+      changeText.textContent = 'Cooler';
+
+    } else {
+
+      changeText.textContent = 'No noticeable change';
+
+    }
+  }
+
+
+  // Explain how much of the ZIP area has data
+
+  const coverage = Math.min(
+    100,
+    totalArea / turf.area(zipFeature) * 100
+  );
+
+  document.querySelector('#summary-note')
+    .textContent =
+      `Area-weighted estimate of monthly average ` +
+      `daily maximum temperatures using LOCA2. ` +
+      `${coverage.toFixed(0)}% of the ZIP-code area ` +
+      `has data for both selected years. ` +
+      `These are regional projections, not exact ` +
+      `neighborhood forecasts.`;
+
+  summary.hidden = false;
+}
