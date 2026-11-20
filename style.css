@@ -1575,7 +1575,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: #faf8f4;
+  background: #0d1d2c;
   opacity: var(--fire-fade);
   pointer-events: none;
 }
@@ -1609,4 +1609,325 @@ body {
   .ember {
     animation: none;
   }
+}
+
+/* =====================================
+   CHAPTER 2 — CLOSER TO HOME
+===================================== */
+
+#san-diego-story {
+  max-width: none;
+  margin-top: 0;
+  padding: 80px 0;
+}
+
+.local-intro {
+  max-width: 850px;
+  margin: 0 auto 80px;
+  text-align: center;
+}
+
+.local-intro h2 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: #213c4a;
+  margin: 20px 0;
+}
+
+.local-intro > p:not(.story-label) {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #555;
+}
+
+/* Scrollytelling layout */
+
+.local-scrolly {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Sticky photograph */
+
+.local-visual {
+  position: sticky;
+  top: 12vh;
+  height: 76vh;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #213c4a;
+}
+
+.local-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  transition: opacity 0.35s ease;
+}
+
+.local-visual img.is-changing {
+  opacity: 0;
+}
+
+#local-image-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  padding: 35px 25px 25px;
+
+  background: linear-gradient(
+    transparent,
+    rgba(0, 0, 0, 0.75)
+  );
+
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Storytelling text */
+
+.local-step {
+  min-height: 80vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  opacity: 0.3;
+  transition: opacity 0.4s ease;
+}
+
+.local-step.is-active {
+  opacity: 1;
+}
+
+.local-step h3 {
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.15;
+  color: #213c4a;
+  margin: 0 0 25px;
+  letter-spacing: -0.03em;
+}
+
+.local-step p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+}
+
+.local-stat {
+  font-size: clamp(5rem, 10vw, 8rem);
+  font-weight: 700;
+  color: #d65a38;
+  line-height: 1;
+  margin: 10px 0;
+}
+
+.local-step .heat-source {
+  font-size: 0.8rem;
+}
+
+/* Mobile layout */
+
+@media (max-width: 800px) {
+
+  .local-scrolly {
+    display: block;
+  }
+
+  .local-visual {
+    top: 0;
+    height: 42vh;
+    z-index: 2;
+    border-radius: 10px;
+  }
+
+  .local-step {
+    min-height: 60vh;
+    padding: 30px 10px;
+  }
+
+  .local-step h3 {
+    font-size: 2rem;
+  }
+
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .local-visual img,
+  .local-step {
+    transition: none;
+  }
+
+  .local-step {
+    opacity: 1;
+  }
+
+}
+
+/* =====================================
+   DARK THEME — CHAPTER 2
+===================================== */
+
+body {
+  background: #0d1d2c;
+  color: #f1f5f9;
+}
+
+main {
+  background: #0d1d2c;
+}
+
+#san-diego-story {
+  background: #0d1d2c;
+  color: #f1f5f9;
+}
+
+/* Chapter label */
+.local-intro .story-label {
+  color: #ff8c42;
+  letter-spacing: 3px;
+}
+
+/* Main chapter heading */
+.local-intro h2 {
+  color: #f1f5f9;
+}
+
+/* Introductory paragraph */
+.local-intro > p:not(.story-label) {
+  color: #b8c7d5;
+}
+
+/* Scrollama headings */
+.local-step h3 {
+  color: #f1f5f9;
+}
+
+/* Scrollama paragraphs */
+.local-step p {
+  color: #b8c7d5;
+}
+
+/* Large temperature statistic */
+.local-stat {
+  color: #ff8c42;
+}
+
+/* Photograph container */
+.local-visual {
+  background: #162838;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Photograph caption */
+#local-image-caption {
+  color: #f1f5f9;
+}
+
+/* Data source */
+.local-step .heat-source {
+  color: #91a5b7;
+}
+
+.heat-source a {
+  color: #ffb477;
+}
+
+/* Inactive and active scroll steps */
+.local-step {
+  opacity: 0.4;
+}
+
+.local-step.is-active {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .local-step {
+    opacity: 1;
+  }
+}
+
+/* =====================================
+   DARK THEME — CLIMATE EXPLORER
+===================================== */
+
+#zip-story,
+.explorer {
+  background: #0d1d2c;
+  color: #f1f5f9;
+}
+
+#zip-story h2,
+.explorer h2,
+.explorer h3 {
+  color: #f1f5f9;
+}
+
+#zip-story p,
+.explorer p,
+#map-description,
+.data-source {
+  color: #b8c7d5;
+}
+
+/* Interactive controls */
+.controls label {
+  color: #f1f5f9;
+}
+
+.controls select,
+.controls input[type="text"],
+#zip-input {
+  background: #162838;
+  color: #f1f5f9;
+  border: 1px solid #405567;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+#zip-input::placeholder {
+  color: #91a5b7;
+}
+
+/* Search buttons */
+.zip-search-row button {
+  background: #ff8c42;
+  color: #0d1d2c;
+  font-weight: 600;
+}
+
+.zip-search-row button:hover {
+  background: #ffab73;
+}
+
+/* Temperature legend */
+.temperature-legend h3 {
+  color: #f1f5f9;
+}
+
+.legend-labels {
+  color: #b8c7d5;
+}
+
+#zip-message {
+  color: #ffb477;
+}
+
+/* Footer */
+.project-footer {
+  background: #091521;
+  border-top: 1px solid #263b4d;
 }

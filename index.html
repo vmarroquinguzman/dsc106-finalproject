@@ -32,6 +32,7 @@
   <script type="module" src="main.js"></script>
   <script type="module" src="globe.js"></script>
   <script type="module" src="transition.js"></script>
+  <script type="module" src="local-story.js"></script>
 
 </head>
 
@@ -116,32 +117,110 @@
 </section>
 
 
-<!-- TRANSITION TO SAN DIEGO -->
+
+<!-- CHAPTER 2: CLOSER TO HOME -->
 <section id="san-diego-story" class="story-section">
-  <p class="story-label"></p>
 
-  <h2>San Diego is already feeling the heat</h2>
+  <div class="local-intro">
 
-  <div class="heat-stat">
-    <span class="heat-stat-number">+10</span>
-    <div class="heat-stat-copy">
-      <h3>more days above 80°F per year</h3>
-      <p>Compared with 1970 in the City of San Diego</p>
-    </div>
+    <p class="story-label"></p>
+
+    <h2>But warming doesn't affect everyone equally.</h2>
+
+    <p>
+      Even within San Diego County, our experience
+      of heat can vary dramatically depending on
+      where we live.
+    </p>
+
   </div>
-  <p>
-    San Diego's climate can change dramatically over just a few miles. The coast, 
-    inland valleys, mountains, and deserts experience heat differently. As 
-    temperatures continue to rise, what could that mean for your community?
-  </p>
 
-  <p class="heat-source">
-    Source:
-    <a href="https://www.sandiego.gov/sites/default/files/2026-06/heat-data-summary_final_06-2026.pdf"
-        target="_blank" rel="noopener noreferrer">
-      City of San Diego, Heat Data Summary (2026), p. 4
-    </a>
-  </p>
+  <div class="local-scrolly">
+
+    <!-- Sticky visual -->
+    <div class="local-visual">
+
+      <img
+        id="local-image"
+        src="images/san-diego.jpg"
+        alt="San Diego County landscape"
+      >
+
+      <div id="local-image-caption">
+        San Diego County
+      </div>
+
+    </div>
+
+    <!-- Scrollama storytelling steps -->
+    <div class="local-steps">
+
+      <div class="local-step" data-stage="0">
+
+        <h3>San Diego is already feeling the heat.</h3>
+
+        <div class="local-stat">+10</div>
+
+        <p>
+          More days above 80°F per year compared
+          with 1970 in the City of San Diego.
+        </p>
+
+        <p class="heat-source">
+          Source:
+          <a href="https://www.sandiego.gov/sites/default/files/2026-06/heat-data-summary_final_06-2026.pdf"
+             target="_blank"
+             rel="noopener noreferrer">
+            City of San Diego, Heat Data Summary (2026), p. 4
+          </a>
+        </p>
+
+      </div>
+
+      <div class="local-step" data-stage="1">
+
+        <h3>Along the coast.</h3>
+
+        <p>
+          Communities near the Pacific Ocean benefit
+          from the cooling influence of the water,
+          which helps moderate summer temperatures.
+        </p>
+
+      </div>
+
+      <div class="local-step" data-stage="2">
+
+        <h3>Just a few miles inland.</h3>
+
+        <p>
+          Away from the ocean, inland valleys can
+          experience much hotter summer days.
+        </p>
+
+      </div>
+
+      <div class="local-step" data-stage="3">
+
+        <h3>Further east.</h3>
+
+        <p>
+          San Diego County's desert communities
+          experience a very different climate
+          from those along the coast.
+        </p>
+
+        <p>
+          As the planet warms, how might these
+          differences change?
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
 
 <!-- PERSONALIZED TRANSITION -->
